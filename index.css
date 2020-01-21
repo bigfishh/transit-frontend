@@ -1,0 +1,29 @@
+.display-map{
+    display: flex;
+}
+.subway-container {
+    display: inline-block;
+    width: 50vw;
+    margin-bottom: 10%;
+   
+}
+
+.subwayUl {
+    
+    display: flex;
+    /* display: inline-table; */
+}
+.stats{
+    display: flex;
+    /* display: inline-table; */
+}
+.allSubway{
+    /* float: left; */
+    display: inline-block;
+    position: relative;
+}
+/* #form{
+    display: inline-block;
+    width: 50vw;
+    margin-bottom: 10%;
+} */

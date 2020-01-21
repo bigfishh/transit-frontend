@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
-    <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script>
-  </head>
-  <body>
-    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAelUr6kBl9WauSQGBbp2lTeT63DWZT-AA&libraries=visualization&callback=initMap"></script>
-      <ul class="allSubway">
-
-      </ul>
     <script defer src="index.js"></script>
+    <!-- <script  src="index.css"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArOlWr1bK-Y_tjKPPOXvv0NZlslgRvSrw&callback=initMap"
+    ></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+        width: 75%
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body >
+  
+ 
+<div id="search">
+  <h2>Search Bar:</h2>
+    <textarea></textarea><br/>
+    Elevators <input type="checkbox" id="myCheck">
+    Escalator <input type="checkbox" id="escalator">
+</div>
+
+<div style="display: flex" class="container subway-container">
+<div class="subwayUl">
+  <ul class="allSubway">
+  </ul>
+</div>
+<div class = "stats">
+  <ul id="statLi">
+
+  </ul>
+</div>
+<div id="form" >
+  <!-- insert form -->
+</div>
+</div>
+
+
+
+
+
+<div id="map"></div>
   </body>
 </html>
+
+
+
+
+
+
+
