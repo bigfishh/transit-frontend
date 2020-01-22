@@ -1,26 +1,3 @@
-const checkbox = document.querySelector("#myCheck")
-const escalCheckbox = document.querySelector("#escalator")
-const allSubUl = document.querySelector(".allSubway")
-const statsDiv = document.querySelector(".stats")
-const statUl = document.querySelector("#statLi")
-const formDiv = document.querySelector("#form")
-
-
-  let fulton = {lat: 40.74307, lng: -73.984264};
-
-  let map = new google.maps.Map(
-    document.getElementById('map'), {zoom: 13, center: fulton}
-    );
-
-
-
-
-function fetchStations(){
-    return fetch("http://localhost:3000/stations")
-    .then(r => r.json())
-}
-
-const fetchedStation = fetchStations()
 
 
 checkbox.addEventListener('click', () => {
@@ -33,52 +10,16 @@ escalCheckbox.addEventListener('click', () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function esOrEl(whichOne,check){
-  let pointsArray = []
     if (check.checked){
         let stationArr = []
         fetchedStation
         .then(stationData => {
-            // console.log("outside foreach")
-            allSubUl.innerText = ""
             stationData.forEach(station => {
                 station.features.find((feature) => {
                     if (feature.name === whichOne){ 
                         if(!stationArr.includes(station.stop_name)){
-                            const newLi = document.createElement('li')
-                            newLi.innerText = `${station.stop_name}`
-                            let coordinates = {lat: station.gtfs_latitude , lng: station.gtfs_longitude}
-                            let point = new google.maps.Marker({position: coordinates, map: map})
-
-                            pointsArray.push(point)
-                            allSubUl.append(newLi)
-                            
-                            newLi.addEventListener('click', (e) => {
-                                displayStats(station)
-                                displayForm(station)
-                            })
+                            displayStation(station)
                         }
                         stationArr.push(station.stop_name)
                     }
@@ -86,56 +27,105 @@ function esOrEl(whichOne,check){
             });
         })
     } else {
-        allSubUl.innerText = ""
-        formDiv.innerText = ""
-        statUl.innerText = ""
+        clearer(allSubUl)
+        clearer(formDiv)
+        clearer(statUl)
         map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 13, center: fulton}
-        )
+            document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}})
     }
 }
 
-function displayForm(station){
-    formDiv.innerText = ""
-    const newbreak = document.createElement("br")
-    const newForm = document.createElement('form')
-        const nameLabel = document.createElement('label')
-            nameLabel.innerText = "Name"
-        const nameInput = document.createElement('input')
-        const localLabel = document.createElement('label')
-            localLabel.innerText = "Local or Nah?"
-        const localInput = document.createElement('input')
-        const ratingLabel = document.createElement('label')
-            ratingLabel.innerText = "Rating"
-        const ratingInput = document.createElement('input')
-        const contentLabel = document.createElement('label')
-            contentLabel.innerText = "Content"
-        const contentInput = document.createElement('input')
-        const submitInput = document.createElement('input')
-            submitInput.type = "submit"
-            submitInput.value = "Submit"
 
-        newForm.append(nameLabel, nameInput, localLabel, localInput, ratingLabel, ratingInput, contentLabel, contentInput, submitInput)  
+function displayStation(station){
+    const newLi = elCreator('li')
+        newLi.innerText = `${station.stop_name}`
+    let coordinates = {lat: station.gtfs_latitude , lng: station.gtfs_longitude}
+    let point = new google.maps.Marker({position: coordinates, map: map})
 
-    formDiv.append(newForm)
+    allSubUl.append(newLi)
 
-    newForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        console.log(e.target["name"].value)
+    newLi.addEventListener('click', (e) => {
+        displayStats(station)
+        displayReviews(station)
+        formDiv.style = "display:inline-block"
+        displayForm(station)
     })
 }
 
+
+
 function displayStats(station){
     let features = featureaccess(station)
-    statUl.innerText = ""
-    const stationName = document.createElement("li")
-    stationName.innerText = station.stop_name
-    const routes = document.createElement("li")
-    routes.innerText = station.daytime_routes
-    const feature = document.createElement("li")
-    feature.innerText = features
-    statUl.append(stationName,routes,feature)
+    clearer(statUl)
+
+    const stationName = elCreator("li")
+        stationName.innerText = station.stop_name
+    const routes = elCreator("li")
+        routes.innerText = station.daytime_routes
+    const feature = elCreator("li")
+        feature.innerText = features
+
+    const stationsRatingLi = elCreator('li')
+        stationsRatingLi.innerText = (calculateRating(station) || 0)
+        
+    statUl.append(stationName,routes,feature, stationsRatingLi)
 }
+                                                        function calculateRating(station, review){
+                                                            let sumOfRating = 0;
+                                                            
+                                                                station.reviews.forEach((review) => {
+                                                                    sumOfRating += review.rating
+
+                                                                })
+
+                                                            return Math.floor(sumOfRating/station.reviews.length)
+                                                        }
+
+function displayForm(station){
+
+
+    newForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const nameValue  = e.target["Name"].value
+        const booleanValue  = e.target["local Or Nah?"].checked
+        console.log(booleanValue)
+        const RatingValue  = e.target["Rating"].value
+        const ContentValue  = e.target["Content"].value
+        fetch("http://localhost:3000/reviews",{
+            method: "POST",
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                name: nameValue,
+                station_id: station.id,
+                localOrNah:booleanValue,
+                rating:RatingValue,
+                content:ContentValue,
+            })
+        })
+        .then(r => r.json())
+        .then(newReview => {
+            slapItOnTheDom(newReview)
+            displayStats(station)
+        })
+
+    })
+}
+function displayReviews(station){
+    fetchedReview
+    .then(reviewsData => {
+        clearer(reviewsDiv)
+        reviewsData.forEach((review) => {
+            if (station.id === review["station_id"]){
+                slapItOnTheDom(review)
+            }
+        })
+    })
+}
+
+
+
 
 function featureaccess(station){
     let arr = []
@@ -145,4 +135,33 @@ function featureaccess(station){
         }
     })
     return arr
+}
+
+
+
+
+function slapItOnTheDom(review){
+    
+    console.log(review)
+    const nameLi = elCreator('li')
+        nameLi.innerText = review.name
+        console.log(nameLi)
+    const ratingLi = elCreator('li')
+        ratingLi.innerText = review.rating
+        console.log(ratingLi)
+    const contentLi = elCreator('li')
+        contentLi.innerText = review.content
+        console.log(contentLi)
+
+    reviewsDiv.append(nameLi, ratingLi, contentLi)
+}
+
+
+
+function clearer(div){
+    div.innerText = ""
+}
+
+function elCreator(element){
+    return document.createElement(element)
 }

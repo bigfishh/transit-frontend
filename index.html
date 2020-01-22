@@ -4,6 +4,8 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <script defer src="adapter.js"></script>
+    <script defer src="variables.js"></script>
     <script defer src="index.js"></script>
     <!-- <script  src="index.css"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArOlWr1bK-Y_tjKPPOXvv0NZlslgRvSrw&callback=initMap"
@@ -44,8 +46,21 @@
 
   </ul>
 </div>
-<div id="form" >
-  <!-- insert form -->
+<div id="reviews">
+  <!-- insert reviews -->
+ </div>
+<div id="form" style="display:none;">
+  <form id="new-review-form">
+    <label>Name</label>
+    <input type="text" name="Name"><br>
+    <label>Local or Nah?</label>
+    <input type="checkbox" name="local Or Nah?"><br>
+    <label>Rating</label>
+    <input type="integer" name="Rating"><br>
+    <label>Content</label>
+    <input type="text" name="Content"><br>
+    <input type="submit" value="Submit">
+  </form>
 </div>
 </div>
 
