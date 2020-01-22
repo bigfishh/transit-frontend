@@ -1,42 +1,15 @@
 
 
 checkbox.addEventListener('click', () => {
-    esOrEl("Elevator", checkbox)
+    esOrEl(elStation,checkbox,"Elevator")
 })
 escalCheckbox.addEventListener('click', () => {
-    console.log("hello")
-    esOrEl("Escalator", escalCheckbox)
+    esOrEl(esStation,escalCheckbox,"Escalator")
 })
 
 
 
-function esOrEl(whichOne,check){
-    if (check.checked){
-        let stationArr = []
-        fetchedStation
-        .then(stationData => {
-            stationData.forEach(station => {
-                station.features.find((feature) => {
-                    if (feature.name === whichOne){ 
-                        if(!stationArr.includes(station.stop_name)){
-                            displayStation(station)
-                        }
-                        stationArr.push(station.stop_name)
-                    }
-                })
-            });
-        })
-    } else {
-        clearer(allSubUl)
-        clearer(formDiv)
-        clearer(statUl)
-        map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}})
-    }
-}
-
-
-function displayStation(station){
+function displayStation(station,type){
     const newLi = elCreator('li')
         newLi.innerText = `${station.stop_name}`
     let coordinates = {lat: station.gtfs_latitude , lng: station.gtfs_longitude}
@@ -45,17 +18,18 @@ function displayStation(station){
     allSubUl.append(newLi)
 
     newLi.addEventListener('click', (e) => {
-        displayStats(station)
-        displayReviews(station)
+        
+        displayStats(station,type)
+        console.log("click me", station.id)
         formDiv.style = "display:inline-block"
-        displayForm(station)
+        displayReviewStuff(station)
+        clearer(reviewsDiv)
     })
 }
 
 
 
-function displayStats(station){
-    let features = featureaccess(station)
+function displayStats(station,type){
     clearer(statUl)
 
     const stationName = elCreator("li")
@@ -63,26 +37,27 @@ function displayStats(station){
     const routes = elCreator("li")
         routes.innerText = station.daytime_routes
     const feature = elCreator("li")
-        feature.innerText = features
+        feature.innerText = type
 
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = (calculateRating(station) || 0)
         
     statUl.append(stationName,routes,feature, stationsRatingLi)
 }
-                                                        function calculateRating(station, review){
-                                                            let sumOfRating = 0;
-                                                            
-                                                                station.reviews.forEach((review) => {
-                                                                    sumOfRating += review.rating
 
-                                                                })
 
-                                                            return Math.floor(sumOfRating/station.reviews.length)
-                                                        }
-
-function displayForm(station){
-
+function displayReviewStuff(station){
+    console.log(fetchedReview)
+    fetchedReview
+    .then(reviewsData => {
+        clearer(reviewsDiv)
+        reviewsData.forEach((review) => {
+            if (station.id === review["station_id"]){
+                console.log(review)
+                slapItOnTheDom(review)
+            }
+        })
+    })
 
     newForm.addEventListener('submit', (e) => {
         e.preventDefault()
@@ -106,54 +81,31 @@ function displayForm(station){
         })
         .then(r => r.json())
         .then(newReview => {
+            console.log("1")
+            console.log("displayReviewStuff")
             slapItOnTheDom(newReview)
-            displayStats(station)
+            // displayStats(station,newReview)
         })
 
     })
 }
-function displayReviews(station){
-    fetchedReview
-    .then(reviewsData => {
-        clearer(reviewsDiv)
-        reviewsData.forEach((review) => {
-            if (station.id === review["station_id"]){
-                slapItOnTheDom(review)
-            }
-        })
-    })
-}
-
-
-
-
-function featureaccess(station){
-    let arr = []
-    station.features.forEach(element => {
-        if(!arr.includes(element.name)){
-            arr.push(element.name)
-        }
-    })
-    return arr
-}
-
 
 
 
 function slapItOnTheDom(review){
     
-    console.log(review)
+    // console.log(review)
     const nameLi = elCreator('li')
         nameLi.innerText = review.name
-        console.log(nameLi)
+        // console.log(nameLi)
     const ratingLi = elCreator('li')
         ratingLi.innerText = review.rating
-        console.log(ratingLi)
+        // console.log(ratingLi)
     const contentLi = elCreator('li')
         contentLi.innerText = review.content
-        console.log(contentLi)
-
-    reviewsDiv.append(nameLi, ratingLi, contentLi)
+        // console.log(contentLi)
+      
+    reviewsDiv.append(nameLi,ratingLi,contentLi)
 }
 
 
