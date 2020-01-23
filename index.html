@@ -7,64 +7,38 @@
     <script defer src="adapter.js"></script>
     <script defer src="variables.js"></script>
     <script defer src="index.js"></script>
-    <!-- <script  src="index.css"></script> -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArOlWr1bK-Y_tjKPPOXvv0NZlslgRvSrw&callback=initMap"
-    ></script>
+    <script  src="index.css"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArOlWr1bK-Y_tjKPPOXvv0NZlslgRvSrw&callback=initMap"></script>
+    <link href="style.css?<?=filemtime("style.css")?" rel="stylesheet" type="text/css" />
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 50%;
-        width: 75%
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+      </style>
   </head>
   <body >
-  
- 
-<div id="search">
-  <h2>Search Bar:</h2>
-    <textarea></textarea><br/>
-    Elevators <input type="checkbox" id="myCheck">
-    Escalator <input type="checkbox" id="escalator">
-</div>
-
-<div style="display: flex" class="container subway-container">
-<div class="subwayUl">
-  <ul class="allSubway">
-  </ul>
-</div>
-<div class = "stats">
-  <ul id="statLi">
-
-  </ul>
-</div>
-<div id="reviews">
-  <!-- insert reviews -->
- </div>
-<div id="form" style="display:none;">
-  
-</div>
-</div>
-
-
-
-
-
-<div id="map"></div>
+    <div id="container">
+    <div id="search">
+      <h2 id="option">Search Bar:</h2>
+      Elevators <input type="checkbox" id="myCheck">
+      Escalator <input type="checkbox" id="escalator">
+    </div>
+    <div class="container subway-container">
+        <div class="subwayUl">
+          <ul class="allSubway">
+            <!-- insert all subways -->
+          </ul>
+        </div>
+        <div class = "stats">
+          <ul id="statLi">
+            <!-- insert stat -->
+          </ul>
+        </div>
+        <div id="reviews">
+          <!-- insert reviews -->
+        </div>
+        <div id="form">
+            <!-- insert reviews form -->
+        </div>
+      </div>
+        <div id="map"></div>
+      </div>
   </body>
 </html>
-
-
-
-
-
-
-
