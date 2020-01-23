@@ -16,13 +16,14 @@ function displayStation(station,type){
     let point = new google.maps.Marker({position: coordinates, map: map})
 
     allSubUl.append(newLi)
-
+    // clearer(formDiv)
     newLi.addEventListener('click', (e) => {
         
         displayStats(station,type)
         console.log("click me", station.id)
         formDiv.style = "display:inline-block"
         displayReviewStuff(station)
+        formCreator(station)
         clearer(reviewsDiv)
     })
 }
@@ -59,35 +60,7 @@ function displayReviewStuff(station){
         })
     })
 
-    newForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        const nameValue  = e.target["Name"].value
-        const booleanValue  = e.target["local Or Nah?"].checked
-        console.log(booleanValue)
-        const RatingValue  = e.target["Rating"].value
-        const ContentValue  = e.target["Content"].value
-        fetch("http://localhost:3000/reviews",{
-            method: "POST",
-            headers:{
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({
-                name: nameValue,
-                station_id: station.id,
-                localOrNah:booleanValue,
-                rating:RatingValue,
-                content:ContentValue,
-            })
-        })
-        .then(r => r.json())
-        .then(newReview => {
-            console.log("1")
-            console.log("displayReviewStuff")
-            slapItOnTheDom(newReview)
-            // displayStats(station,newReview)
-        })
-
-    })
+   
 }
 
 
@@ -110,10 +83,62 @@ function slapItOnTheDom(review){
 
 
 
-function clearer(div){
-    div.innerText = ""
-}
+
 
 function elCreator(element){
     return document.createElement(element)
+}
+
+
+
+
+
+
+
+
+function formCreator(station){
+    formDiv.innerHTML = ""
+    formDiv.innerHTML += `
+    <form id="new-review-form">
+    <label>Name</label>
+    <input type="text" name="Name"><br>
+    <label>Local or Nah?</label>
+    <input type="checkbox" name="local Or Nah?"><br>
+    <label>Rating</label>
+    <input type="integer" name="Rating"><br>
+    <label>Content</label>
+    <input type="text" name="Content"><br>
+    <input type="submit" value="Submit">
+  </form>`
+  const newForm = formDiv.querySelector("#new-review-form")
+//   newForm.dataset
+  newForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const nameValue  = e.target["Name"].value
+    const booleanValue  = e.target["local Or Nah?"].checked
+    console.log(booleanValue)
+    const RatingValue  = e.target["Rating"].value
+    const ContentValue  = e.target["Content"].value
+    fetch("http://localhost:3000/reviews",{
+        method: "POST",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+            name: nameValue,
+            station_id: station.id,
+            localOrNah:booleanValue,
+            rating:RatingValue,
+            content:ContentValue,
+        })
+    })
+    .then(r => r.json())
+    .then(newReview => {
+        console.log("1")
+        console.log("displayReviewStuff")
+        slapItOnTheDom(newReview)
+        // displayStats(station,newReview)
+    })
+
+})
 }

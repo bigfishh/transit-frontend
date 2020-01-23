@@ -3,7 +3,7 @@ const escalCheckbox = document.querySelector("#escalator")
 const allSubUl = document.querySelector(".allSubway")
 const statsDiv = document.querySelector(".stats")
 const statUl = document.querySelector("#statLi")
-const newForm = document.querySelector("#new-review-form")
+
 const formDiv = document.querySelector('#form')
 const reviewsDiv = document.querySelector("#reviews")
 
@@ -15,7 +15,9 @@ const fetchedReview = Adapter.fetchStations("reviews")
 const elStation = Adapter.fetchStations("features/escalators")
 const esStation = Adapter.fetchStations("features/elevators")
 
-
+const clearer = (div) => {
+    div.innerText = ""
+}
 
 const esOrEl = (arr,check,type) => {
     if (check.checked){
