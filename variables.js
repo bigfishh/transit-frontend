@@ -3,10 +3,8 @@ const escalCheckbox = document.querySelector("#escalator")
 const allSubUl = document.querySelector(".allSubway")
 const statsDiv = document.querySelector(".stats")
 const statUl = document.querySelector("#statLi")
-
 const formDiv = document.querySelector('#form')
 const reviewsDiv = document.querySelector("#reviews")
-
 let map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}});
 
 
@@ -36,7 +34,7 @@ const esOrEl = (arr,check,type) => {
     }
 }
 
-const calculateRating = (station, review) => {
+const calculateRating = (station) => {
     let sumOfRating = 0;
     
     station.reviews.forEach((review) => {

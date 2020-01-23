@@ -1,29 +1,19 @@
-.display-map{
-    display: flex;
+#container{
+    background-color: lightcyan;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.subway-container {
-    display: inline-block;
-    width: 50vw;
-    margin-bottom: 10%;
-   
+/* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+#map {
+    height: 500px;
+    width: 500px;
+    padding: 820px, 820px, 820px, 820px;
 }
-
-.subwayUl {
-    
-    display: flex;
-    /* display: inline-table; */
+#option{
+    display: right;
 }
-.stats{
-    display: flex;
-    /* display: inline-table; */
+#subway-container {
+    display: right;
 }
-.allSubway{
-    /* float: left; */
-    display: inline-block;
-    position: relative;
-}
-/* #form{
-    display: inline-block;
-    width: 50vw;
-    margin-bottom: 10%;
-} */

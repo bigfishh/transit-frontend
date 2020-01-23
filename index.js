@@ -40,21 +40,20 @@ function displayStats(station,type){
     const feature = elCreator("li")
         feature.innerText = type
 
+
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = (calculateRating(station) || 0)
-        
+        stationsRatingLi.id = "stationRating"
     statUl.append(stationName,routes,feature, stationsRatingLi)
 }
 
 
 function displayReviewStuff(station){
-    console.log(fetchedReview)
     fetchedReview
     .then(reviewsData => {
         clearer(reviewsDiv)
         reviewsData.forEach((review) => {
             if (station.id === review["station_id"]){
-                console.log(review)
                 slapItOnTheDom(review)
             }
         })
@@ -112,6 +111,8 @@ function formCreator(station){
   </form>`
   const newForm = formDiv.querySelector("#new-review-form")
 //   newForm.dataset
+const stationRateLi = document.querySelector("#stationRating")
+
   newForm.addEventListener('submit', (e) => {
     e.preventDefault()
     const nameValue  = e.target["Name"].value
@@ -137,6 +138,11 @@ function formCreator(station){
         console.log("1")
         console.log("displayReviewStuff")
         slapItOnTheDom(newReview)
+        station.reviews.push(newReview)
+        stationRateLi.innerText = (calculateRating(station) || 0)
+        console.log(stationRateLi)
+        statUl.appendChild(stationRateLi)
+
         // displayStats(station,newReview)
     })
 
