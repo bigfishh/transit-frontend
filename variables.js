@@ -5,8 +5,12 @@ const statsDiv = document.querySelector(".stats")
 const statUl = document.querySelector("#statLi")
 const formDiv = document.querySelector('#form')
 const reviewsDiv = document.querySelector("#reviews")
+const mapDiv = document.querySelector('.vertical-center')
 let map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}});
 
+// map.addListener('click', (e) => {
+//     console.log(e.latlang, 'hello')
+// })
 
 const fetchedReview = Adapter.fetchStations("reviews")
 

@@ -2,35 +2,74 @@
 <html>
   <head>
     <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <script defer src="adapter.js"></script>
     <script defer src="variables.js"></script>
     <script defer src="index.js"></script>
-    <script  src="index.css"></script>
+    <!-- <script  src="index.css"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArOlWr1bK-Y_tjKPPOXvv0NZlslgRvSrw&callback=initMap"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="style.css?<?=filemtime("style.css")?" rel="stylesheet" type="text/css" />
-    <style>
-      </style>
   </head>
   <body >
+    
+
     <div id="container">
-    <div id="search">
-      <h2 id="option">Search Bar:</h2>
-      Elevators <input type="checkbox" id="myCheck">
-      Escalator <input type="checkbox" id="escalator">
-    </div>
-    <div class="container subway-container">
-        <div class="subwayUl">
-          <ul class="allSubway">
+        <div id="search">
+            <h2 id="option">Access Transit</h2>
+        </div>
+        <div class="row">
+            <div class="col vertical-center">
+                <div id="map"></div>            
+            </div>
+            <div class="col">
+                <div class="col">
+                </div>
+                <div class="col">
+                    Elevators <input type="checkbox" id="myCheck">
+                    Escalator <input type="checkbox" id="escalator">
+                </div>
+                <div class="col">
+                    <div class="subwayUl">
+                        <ul class="allSubway">
+                          <!-- insert all subways -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div class = "stats">
+                        <ul id="statLi">
+                          <!-- insert stat -->
+                        </ul>
+                      </div>
+                </div>
+                <div class="col">
+                    <div id="reviews">
+                        <!-- insert reviews -->
+                      </div>
+                      <div id="form">
+                          <!-- insert reviews form -->
+                      </div>
+                </div>
+            </div>
+
+
+
+
+
+    <!-- <div id="search">
+      <h2 id="option">Access Transit</h2>
+      <h2>Elevators <input type="checkbox" id="myCheck"></h2>
+      <h2>Escalator <input type="checkbox" id="escalator"></h2>
+    </div> -->
+    <!-- <div class="container subway-container"> -->
+        <!-- <div class="subwayUl">
+          <ul class="allSubway"> -->
             <!-- insert all subways -->
-          </ul>
-        </div>
-        <div class = "stats">
-          <ul id="statLi">
-            <!-- insert stat -->
-          </ul>
-        </div>
+          <!-- </ul>
+        </div> -->
+        
         <div id="reviews">
           <!-- insert reviews -->
         </div>
@@ -38,7 +77,12 @@
             <!-- insert reviews form -->
         </div>
       </div>
-        <div id="map"></div>
+        <!-- <div id="map"></div> -->
       </div>
+
+      
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>

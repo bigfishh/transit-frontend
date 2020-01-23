@@ -12,11 +12,17 @@ escalCheckbox.addEventListener('click', () => {
 function displayStation(station,type){
     const newLi = elCreator('li')
         newLi.innerText = `${station.stop_name}`
-    let coordinates = {lat: station.gtfs_latitude , lng: station.gtfs_longitude}
-    let point = new google.maps.Marker({position: coordinates, map: map})
+
+    let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
+    let marker = new google.maps.Marker({position: latling, map: map})
+
+    google.maps.event.addListener(marker, 'click', (e) => {
+        console.log(station.stop_name, e.latLng.lat(), e.latLng.lng())
+        // debugger;
+    });
 
     allSubUl.append(newLi)
-    // clearer(formDiv)
+
     newLi.addEventListener('click', (e) => {
         
         displayStats(station,type)
@@ -33,6 +39,8 @@ function displayStation(station,type){
 function displayStats(station,type){
     clearer(statUl)
 
+    const statName = elCreator('p')
+        statName.innerText = "Info:"
     const stationName = elCreator("li")
         stationName.innerText = station.stop_name
     const routes = elCreator("li")
@@ -44,7 +52,7 @@ function displayStats(station,type){
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = (calculateRating(station) || 0)
         stationsRatingLi.id = "stationRating"
-    statUl.append(stationName,routes,feature, stationsRatingLi)
+    statUl.append(statName, stationName,routes,feature, stationsRatingLi)
 }
 
 
@@ -96,7 +104,12 @@ function elCreator(element){
 
 
 function formCreator(station){
+    const formName = elCreator('p')
+        formName.innerText = "New Review:"
+
     formDiv.innerHTML = ""
+    formDiv.append(formName)
+
     formDiv.innerHTML += `
     <form id="new-review-form">
     <label>Name</label>
@@ -148,3 +161,4 @@ const stationRateLi = document.querySelector("#stationRating")
 
 })
 }
+

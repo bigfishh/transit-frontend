@@ -1,0 +1,45 @@
+#container {
+    background-color: lightcyan;
+    width: 1000px;
+    height: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+/* body{
+
+} */
+#map {
+    margin-left: 20px;
+    height: 500px;
+    width: 500px;
+    padding: 80px, 80px, 80px, 80px;
+    border: 10px solid lightsteelblue;
+}
+#option{
+    display: right;
+}
+#subway-container {
+    display: right;
+}
+#search{
+    display: flex;
+    margin-right: auto;
+}
+.allSubway{
+    height: 200px;
+    overflow-y: scroll;
+}
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :      */
+    display: flex;
+    align-items: center;
+}
+#option{
+    display: flex;
+    text-align: center;
+    margin-top: 50px;
+    /* align-content: center; */
+}
