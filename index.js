@@ -1,12 +1,80 @@
 
 
+/*
+    <body>
+        <div class="Nav"></div>
+        <div class="info">
+            <div class="map"> 
+            </div>
+            <div class="list">
+                <div class="option"
+                </div>
+                <div class="stats">
+                </div>
+            </div>
+        </div>
+    </body>
+
+    CSS down here
+    .Nav {
+        width: 100%;
+        height: 20vh; 
+        text-Align: center;
+        item-align: center;
+//px, rem, em, vh
+        border-style: solid;
+        border-color: #f00;
+    }
+    .Nav h1 {
+        margin: auto;
+    }
+
+    .info {
+        width 100%;
+        height: 700px;
+    }
+
+    .map {
+        float: left;
+        width: 50%;
+        height: xpx;
+    }
+
+    .list {
+        width: 49%
+        height: 
+        float: right
+
+        position:absolute;
+        right:0px
+    }
+
+    .option {
+        width: 100%
+        height: 20px;
+
+        position: absolute;
+        top: 0px;
+        
+    }
+    .stats {
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+    }
+
+
+
+
+*/
 checkbox.addEventListener('click', () => {
-    esOrEl(elStation,checkbox,"Elevator")
+    esOrEl(elStation    ,checkbox,"Elevator")
 })
 escalCheckbox.addEventListener('click', () => {
     esOrEl(esStation,escalCheckbox,"Escalator")
 })
 
+const modalUl = document.querySelector("#modal-Ul")
 
 
 function displayStation(station,type){
@@ -15,11 +83,37 @@ function displayStation(station,type){
 
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
-
+    // console.log(marker)
+    // marker.data.toggle = "Modal"
+    // marker.data.target = "#exampleModalCenter"
     google.maps.event.addListener(marker, 'click', (e) => {
-        console.log(station.stop_name, e.latLng.lat(), e.latLng.lng())
-        // debugger;
+       
+       body.className = "modal-open"
+
+       
+       modal.className = "modal fade show"
+       modal.style = "display:block"
+
+       
+        title.innerText = station.stop_name
+        clearer(modalUl)
+    
+    const routes = elCreator("li")
+        routes.innerText = station.daytime_routes
+    const feature = elCreator("li")
+        feature.innerText = type
+
+
+    const stationsRatingLi = elCreator('li')
+        stationsRatingLi.innerText = (calculateRating(station) || 0)
+        stationsRatingLi.id = "stationRating"
+
+        modalUl.append(routes,feature, stationsRatingLi)
+        
+
     });
+
+    
 
     allSubUl.append(newLi)
 
@@ -36,23 +130,36 @@ function displayStation(station,type){
 
 
 
+trigger.addEventListener("click",() => {
+    body.className = ""
+
+       
+    modal.className = "modal fade"
+    modal.style = "display:none"
+})
+
+
+
 function displayStats(station,type){
     clearer(statUl)
 
     const statName = elCreator('p')
         statName.innerText = "Info:"
     const stationName = elCreator("li")
-        stationName.innerText = station.stop_name
+        stationName.innerText = `Stop Name: ${station.stop_name}`
     const routes = elCreator("li")
-        routes.innerText = station.daytime_routes
+        routes.innerText = `Routes: ${station.daytime_routes}`
     const feature = elCreator("li")
-        feature.innerText = type
+        feature.innerText = `Feature: ${type}`
 
 
     const stationsRatingLi = elCreator('li')
-        stationsRatingLi.innerText = (calculateRating(station) || 0)
+        stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
         stationsRatingLi.id = "stationRating"
-    statUl.append(statName, stationName,routes,feature, stationsRatingLi)
+    const reviewName = elCreator('p')
+        reviewName.innerText = "Reviews:"
+    const statReviewBreak = elCreator('br')
+    statUl.append(statName, stationName,routes,feature, stationsRatingLi, statReviewBreak, reviewName)
 }
 
 
@@ -71,21 +178,20 @@ function displayReviewStuff(station){
 }
 
 
-
 function slapItOnTheDom(review){
-    
     // console.log(review)
     const nameLi = elCreator('li')
-        nameLi.innerText = review.name
+        nameLi.innerText = `Name: ${review.name}`
         // console.log(nameLi)
     const ratingLi = elCreator('li')
-        ratingLi.innerText = review.rating
+        ratingLi.innerText = `Rating: ${review.rating}`
         // console.log(ratingLi)
     const contentLi = elCreator('li')
-        contentLi.innerText = review.content
+        contentLi.innerText = `Comment: ${review.content}`
         // console.log(contentLi)
+    const reviewBreak = elCreator('br')
       
-    reviewsDiv.append(nameLi,ratingLi,contentLi)
+    reviewsDiv.append(nameLi,ratingLi,contentLi, reviewBreak)
 }
 
 
@@ -152,13 +258,21 @@ const stationRateLi = document.querySelector("#stationRating")
         console.log("displayReviewStuff")
         slapItOnTheDom(newReview)
         station.reviews.push(newReview)
-        stationRateLi.innerText = (calculateRating(station) || 0)
-        console.log(stationRateLi)
-        statUl.appendChild(stationRateLi)
+        const stationsRatingLi = document.querySelector("#stationRating")
+        stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
+        console.log(stationsRatingLi)
+        statUl.appendChild(stationsRatingLi)
 
         // displayStats(station,newReview)
     })
 
 })
+}
+function trueShow(station){
+    window.scroll(0,1000)
+    const ShowDiv = document.querySelector(".test")
+   const header= elCreator("h2")
+   header.innerText = station.stop_name
+   ShowDiv.append(header)
 }
 

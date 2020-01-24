@@ -1,7 +1,8 @@
 #container {
+    border: solid 1px blue;
     background-color: lightcyan;
     width: 1000px;
-    height: 800px;
+    height: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -11,24 +12,31 @@
 
 } */
 #map {
-    margin-left: 20px;
-    height: 500px;
+    margin-left: 0px;
+    height: 835px;
+    margin-bottom: 240px;
     width: 500px;
-    padding: 80px, 80px, 80px, 80px;
+    /* padding: 80px, 80px, 80px, 80px; */
     border: 10px solid lightsteelblue;
 }
 #option{
     display: right;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 60px;
 }
 #subway-container {
     display: right;
 }
 #search{
-    display: flex;
-    margin-right: auto;
+    width: 100%;
+    height: 20vh; 
+    border: solid 1px blue;
+    
+   
 }
+
 .allSubway{
-    height: 200px;
+    height: 250px;
     overflow-y: scroll;
 }
 .vertical-center {
@@ -41,5 +49,66 @@
     display: flex;
     text-align: center;
     margin-top: 50px;
+    margin-left: 35%;
     /* align-content: center; */
 }
+#reviews{
+    height: 100px;
+    overflow-y: scroll;
+    /* border: solid 1px blue; */
+}
+.checkboxes{
+    height:25px;
+    width: 100%;
+    /* border: solid 1px blue; */
+}
+
+#myCheck{
+    float: left;
+    
+   
+}
+#elevLabel{
+    float: left;
+    
+}
+
+
+#escalator{
+   
+    float:right;
+    
+}
+#escLabel{
+    float:right;
+   
+}
+#map:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
+#option:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+

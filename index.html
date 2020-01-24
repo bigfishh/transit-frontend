@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>Access Transit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <script defer src="adapter.js"></script>
@@ -20,15 +20,17 @@
             <h2 id="option">Access Transit</h2>
         </div>
         <div class="row">
-            <div class="col vertical-center">
+            <div class="col vertical-center" id='google_map'>
                 <div id="map"></div>            
             </div>
             <div class="col">
                 <div class="col">
                 </div>
-                <div class="col">
-                    Elevators <input type="checkbox" id="myCheck">
-                    Escalator <input type="checkbox" id="escalator">
+                <div class="col checkboxes">
+                  <label for="myCheck" id ="elevLabel">Elevator</label>
+                    <input type="checkbox" id="myCheck" class="Elevator">
+                    <label for="escalator" id ="escLabel">Escalator</label>
+                    <input type="checkbox" id="escalator" class="Escalator">
                 </div>
                 <div class="col">
                     <div class="subwayUl">
@@ -44,7 +46,7 @@
                         </ul>
                       </div>
                 </div>
-                <div class="col">
+                <div class="col review-col">
                     <div id="reviews">
                         <!-- insert reviews -->
                       </div>
@@ -53,6 +55,45 @@
                       </div>
                 </div>
             </div>
+        </div>
+    </div>
+     
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span id ="closeTrigger" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul id="modal-Ul">
+
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <!-- <button type="button" class="btn btn-primary">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+      
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
 
 
 
@@ -69,20 +110,13 @@
             <!-- insert all subways -->
           <!-- </ul>
         </div> -->
-        
+<!--         
         <div id="reviews">
-          <!-- insert reviews -->
+          insert reviews
         </div>
         <div id="form">
-            <!-- insert reviews form -->
+            insert reviews form
         </div>
       </div>
-        <!-- <div id="map"></div> -->
-      </div>
-
-      
-      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
-</html>
+        <div id="map"></div>
+      </div> -->

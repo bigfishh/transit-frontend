@@ -6,6 +6,11 @@ const statUl = document.querySelector("#statLi")
 const formDiv = document.querySelector('#form')
 const reviewsDiv = document.querySelector("#reviews")
 const mapDiv = document.querySelector('.vertical-center')
+let title = document.querySelector("#exampleModalLongTitle")
+let modal = document.querySelector("#exampleModalCenter")
+let body = document.getElementsByTagName("BODY")[0]
+let trigger = document.querySelector("#closeTrigger")
+const reviewCol = document.querySelector('.review-col')
 let map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}});
 
 // map.addListener('click', (e) => {
@@ -33,6 +38,8 @@ const esOrEl = (arr,check,type) => {
         clearer(allSubUl)
         clearer(formDiv)
         clearer(statUl)
+        clearer(reviewsDiv)
+        
         map = new google.maps.Map(
             document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}})
     }
