@@ -36,6 +36,6 @@ This web app is built with the following:
 
 **Frontend Installation:** 
 
-- Clone this to your local machine `git clone <this-repo-url>`
+- Clone this repo to your local machine `git clone <this-repo-url>`
 - Ensure *transit_backend* is running locally on `http://localhost:3000/`
 - run `open index.html`
