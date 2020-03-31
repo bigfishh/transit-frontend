@@ -1,72 +1,3 @@
-
-
-/*
-    <body>
-        <div class="Nav"></div>
-        <div class="info">
-            <div class="map"> 
-            </div>
-            <div class="list">
-                <div class="option"
-                </div>
-                <div class="stats">
-                </div>
-            </div>
-        </div>
-    </body>
-
-    CSS down here
-    .Nav {
-        width: 100%;
-        height: 20vh; 
-        text-Align: center;
-        item-align: center;
-//px, rem, em, vh
-        border-style: solid;
-        border-color: #f00;
-    }
-    .Nav h1 {
-        margin: auto;
-    }
-
-    .info {
-        width 100%;
-        height: 700px;
-    }
-
-    .map {
-        float: left;
-        width: 50%;
-        height: xpx;
-    }
-
-    .list {
-        width: 49%
-        height: 
-        float: right
-
-        position:absolute;
-        right:0px
-    }
-
-    .option {
-        width: 100%
-        height: 20px;
-
-        position: absolute;
-        top: 0px;
-        
-    }
-    .stats {
-        width: 100%;
-        position: absolute;
-        bottom: 0px;
-    }
-
-
-
-
-*/
 checkbox.addEventListener('click', () => {
     esOrEl(elStation    ,checkbox,"Elevator")
 })
@@ -94,7 +25,6 @@ function displayStation(station,type){
        modal.className = "modal fade show"
        modal.style = "display:block"
 
-       
         title.innerText = station.stop_name
         clearer(modalUl)
     
@@ -121,7 +51,6 @@ function displayStation(station,type){
         
         displayStats(station,type)
         console.log("click me", station.id)
-        formDiv.style = "display:inline-block"
         displayReviewStuff(station)
         formCreator(station)
         clearer(reviewsDiv)
@@ -132,8 +61,6 @@ function displayStation(station,type){
 
 trigger.addEventListener("click",() => {
     body.className = ""
-
-       
     modal.className = "modal fade"
     modal.style = "display:none"
 })

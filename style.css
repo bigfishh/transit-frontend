@@ -30,7 +30,7 @@ body{
     /* align-content: center; */
 }
 #reviews{
-    height: 100px;
+    max-height: 100px;
     overflow-y: scroll;
 }
 
