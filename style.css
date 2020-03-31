@@ -1,51 +1,28 @@
-#container {
-    border: solid 1px blue;
-    background-color: lightcyan;
-    width: 1000px;
-    height: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+body{
+    overflow: hidden;
 }
-/* Always set the map height explicitly to define the size of the div
-      * element that contains the map. */
-/* body{
-
-} */
 #map {
-    margin-left: 0px;
-    height: 835px;
-    margin-bottom: 240px;
-    width: 500px;
-    /* padding: 80px, 80px, 80px, 80px; */
-    border: 10px solid lightsteelblue;
+    position: absolute;
+    margin-top: 1%;
+    margin-left: 50%;
+    width: 47%;
+    height: 75%;
+    border: solid 2px gray;
+    border-radius: 20px
 }
-#option{
-    display: right;
+
+#title{
+    text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 60px;
-}
-#subway-container {
-    display: right;
-}
-#search{
-    width: 100%;
-    height: 20vh; 
-    border: solid 1px blue;
-    
-   
+    font-size: 50px;
 }
 
 .allSubway{
-    height: 250px;
+    max-height: 250px;
     overflow-y: scroll;
 }
-.vertical-center {
-    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh; /* These two lines are counted as one :      */
-    display: flex;
-    align-items: center;
-}
-#option{
+
+#title{
     display: flex;
     text-align: center;
     margin-top: 50px;
@@ -55,50 +32,17 @@
 #reviews{
     height: 100px;
     overflow-y: scroll;
-    /* border: solid 1px blue; */
-}
-.checkboxes{
-    height:25px;
-    width: 100%;
-    /* border: solid 1px blue; */
 }
 
-#myCheck{
-    float: left;
-    
-   
-}
-#elevLabel{
-    float: left;
-    
-}
-
-
-#escalator{
-   
-    float:right;
-    
-}
-#escLabel{
-    float:right;
-   
-}
-#map:hover {
+#title:hover {
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
-  
+
     /* When the animation is finished, start again */
     animation-iteration-count: infinite;
-  }
-#option:hover {
-    /* Start the shake animation and make the animation last for 0.5 seconds */
-    animation: shake 0.5s;
-  
-    /* When the animation is finished, start again */
-    animation-iteration-count: infinite;
-  }
-  
-  @keyframes shake {
+}
+
+@keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
     20% { transform: translate(-3px, 0px) rotate(1deg); }
@@ -110,5 +54,5 @@
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
-  }
+}
 
