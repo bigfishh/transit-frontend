@@ -8,36 +8,13 @@ escalCheckbox.addEventListener('click', () => {
 
 const modalUl = document.querySelector("#modal-Ul")
 
+
 let mapCenter = {lat: 40.74307, lng: -73.984264}
 let zoomNum = 13
 let map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter});
 
 function displayStation(station, type){
-    const newLi = elCreator('li')
     let routes = station.daytime_routes
-        newLi.innerText = `${station.stop_name} `
-
-        function displayStationRoute(daytime_routes){
-            let daytime = daytime_routes.split(' ')
-            for(let i = 0; i < daytime.length; i ++ ){
-                if (daytime[i] === "D"){
-                    const newImg = elCreator('img')
-                    newImg.src = "http://web.mta.info/siteimages/subwaybullets/d.png"
-                    return newLi.append(newImg)
-                } else if (daytime[i] === "F"){
-                    const newImg2 = elCreator('img')
-                    newImg2.src = "http://web.mta.info/siteimages/subwaybullets/f.png"
-                    return newLi.append(newImg2)
-                } else if (daytime[i] === "B"){
-                    const newImg3 = elCreator('img')
-                    newImg3.src = "http://web.mta.info/siteimages/subwaybullets/b.png"
-                    return newLi.append(newImg3)
-                }
-            }
-        }
-
-    displayStationRoute(routes)
-
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
 
@@ -54,6 +31,7 @@ function displayStation(station, type){
 
 
         title.innerText = station.stop_name
+        
         clearer(modalUl)
     
         const routes = elCreator("li")
@@ -67,37 +45,8 @@ function displayStation(station, type){
             stationsRatingLi.innerText = (calculateRating(station) || 0)
             stationsRatingLi.id = "stationRating"
 
-            modalUl.append(routes,feature, stationsRatingLi)
+            modalUl.append(routes, feature, stationsRatingLi)
     });
-
-    allSubUl.append(newLi)
-
-    newLi.className = "list-group-item" 
-
-    newLi.addEventListener('click', (e) => {
-        if (newLi.className === "list-group-item"){
-            newLi.className = "list-group-item active"
-            console.log(newLi)
-            mapCenter = {lat: station.gtfs_latitude, lng: station.gtfs_longitude}
-            zoomNum = 15
-            map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
-            marker = new google.maps.Marker({position: latling, map: map})
-            type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
-            displayStats(station,type)
-            formCreator(station)
-            clearer(reviewsDiv)
-        } else {
-            newLi.className = "list-group-item"
-            type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
-            mapCenter = {lat: 40.74307, lng: -73.984264}
-            zoomNum = 13
-            map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
-            marker = new google.maps.Marker({position: latling, map: map})
-            clearer(statUl)
-            clearer(reviewsDiv)
-            clearer(formDiv)
-        }
-    })
 
     trigger.addEventListener("click",() => {
         body.className = ""
@@ -131,7 +80,6 @@ function displayStats(station,type){
     })
     statUl.append(statReviewBreak, statName, routes, feature, stationsRatingLi, statReviewBreak, newReviewButton)
 }
-
 
 function slapItOnTheDom(review){
     const nameLi = elCreator('li')
