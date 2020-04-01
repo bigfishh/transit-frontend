@@ -1,12 +1,16 @@
 checkbox.addEventListener('click', () => {
-    esOrEl(elStation    ,checkbox,"Elevator")
+    esOrEl(elStation, checkbox, "Elevator")
 })
 escalCheckbox.addEventListener('click', () => {
-    esOrEl(esStation,escalCheckbox,"Escalator")
+    esOrEl(esStation, escalCheckbox, "Escalator")
 })
 
 const modalUl = document.querySelector("#modal-Ul")
 
+//ensures that the modal is closed until clicked
+body.className = ""
+modal.className = "modal fade"
+modal.style = "display:none"
 
 function displayStation(station,type){
     const newLi = elCreator('li')
@@ -14,13 +18,12 @@ function displayStation(station,type){
 
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
-    
-    google.maps.event.addListener(marker, 'click', (e) => {
-        body.className = "modal-open"
 
+    google.maps.event.addListener(marker, 'click', (e) => {
         
         modal.className = "modal fade show"
         modal.style = "display:block"
+
 
         title.innerText = station.stop_name
         clearer(modalUl)
@@ -43,7 +46,7 @@ function displayStation(station,type){
     newLi.addEventListener('click', (e) => {
         
         displayStats(station,type)
-        console.log("click me", station.id)
+
         displayReviewStuff(station)
         formCreator(station)
         clearer(reviewsDiv)

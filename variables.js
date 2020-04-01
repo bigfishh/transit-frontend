@@ -13,10 +13,6 @@ let trigger = document.querySelector("#closeTrigger")
 const reviewCol = document.querySelector('.review-col')
 let map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}});
 
-// map.addListener('click', (e) => {
-//     console.log(e.latlang, 'hello')
-// })
-
 const fetchedReview = Adapter.fetchStations("reviews")
 
 const elStation = Adapter.fetchStations("features/escalators")
