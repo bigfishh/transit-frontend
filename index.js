@@ -14,36 +14,29 @@ function displayStation(station,type){
 
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
-    // console.log(marker)
-    // marker.data.toggle = "Modal"
-    // marker.data.target = "#exampleModalCenter"
+    
     google.maps.event.addListener(marker, 'click', (e) => {
-       
-       body.className = "modal-open"
+        body.className = "modal-open"
 
-       
-       modal.className = "modal fade show"
-       modal.style = "display:block"
+        
+        modal.className = "modal fade show"
+        modal.style = "display:block"
 
         title.innerText = station.stop_name
         clearer(modalUl)
     
-    const routes = elCreator("li")
-        routes.innerText = station.daytime_routes
-    const feature = elCreator("li")
-        feature.innerText = type
+        const routes = elCreator("li")
+            routes.innerText = station.daytime_routes
+        const feature = elCreator("li")
+            feature.innerText = type
 
 
-    const stationsRatingLi = elCreator('li')
-        stationsRatingLi.innerText = (calculateRating(station) || 0)
-        stationsRatingLi.id = "stationRating"
+        const stationsRatingLi = elCreator('li')
+            stationsRatingLi.innerText = (calculateRating(station) || 0)
+            stationsRatingLi.id = "stationRating"
 
-        modalUl.append(routes,feature, stationsRatingLi)
-        
-
+            modalUl.append(routes,feature, stationsRatingLi)
     });
-
-    
 
     allSubUl.append(newLi)
 
@@ -57,19 +50,14 @@ function displayStation(station,type){
     })
 }
 
-
-
 trigger.addEventListener("click",() => {
     body.className = ""
     modal.className = "modal fade"
     modal.style = "display:none"
 })
 
-
-
 function displayStats(station,type){
     clearer(statUl)
-
     const statName = elCreator('p')
         statName.innerText = "Info:"
     const stationName = elCreator("li")
@@ -89,7 +77,6 @@ function displayStats(station,type){
     statUl.append(statName, stationName,routes,feature, stationsRatingLi, statReviewBreak, reviewName)
 }
 
-
 function displayReviewStuff(station){
     fetchedReview
     .then(reviewsData => {
@@ -100,41 +87,23 @@ function displayReviewStuff(station){
             }
         })
     })
-
-   
 }
 
 
 function slapItOnTheDom(review){
-    // console.log(review)
     const nameLi = elCreator('li')
         nameLi.innerText = `Name: ${review.name}`
-        // console.log(nameLi)
     const ratingLi = elCreator('li')
         ratingLi.innerText = `Rating: ${review.rating}`
-        // console.log(ratingLi)
     const contentLi = elCreator('li')
         contentLi.innerText = `Comment: ${review.content}`
-        // console.log(contentLi)
     const reviewBreak = elCreator('br')
-      
     reviewsDiv.append(nameLi,ratingLi,contentLi, reviewBreak)
 }
-
-
-
-
 
 function elCreator(element){
     return document.createElement(element)
 }
-
-
-
-
-
-
-
 
 function formCreator(station){
     const formName = elCreator('p')
@@ -154,52 +123,49 @@ function formCreator(station){
     <label>Content</label>
     <input type="text" name="Content"><br>
     <input type="submit" value="Submit">
-  </form>`
-  const newForm = formDiv.querySelector("#new-review-form")
-//   newForm.dataset
-const stationRateLi = document.querySelector("#stationRating")
+    </form>`
+    const newForm = formDiv.querySelector("#new-review-form")
+    const stationRateLi = document.querySelector("#stationRating")
 
-  newForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const nameValue  = e.target["Name"].value
-    const booleanValue  = e.target["local Or Nah?"].checked
-    console.log(booleanValue)
-    const RatingValue  = e.target["Rating"].value
-    const ContentValue  = e.target["Content"].value
-    fetch("http://localhost:3000/reviews",{
-        method: "POST",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-            name: nameValue,
-            station_id: station.id,
-            localOrNah:booleanValue,
-            rating:RatingValue,
-            content:ContentValue,
+    newForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const nameValue  = e.target["Name"].value
+        const booleanValue  = e.target["local Or Nah?"].checked
+        console.log(booleanValue)
+        const RatingValue  = e.target["Rating"].value
+        const ContentValue  = e.target["Content"].value
+        fetch("http://localhost:3000/reviews",{
+            method: "POST",
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                name: nameValue,
+                station_id: station.id,
+                localOrNah:booleanValue,
+                rating:RatingValue,
+                content:ContentValue,
+            })
+        })
+        .then(r => r.json())
+        .then(newReview => {
+            console.log("1")
+            console.log("displayReviewStuff")
+            slapItOnTheDom(newReview)
+            station.reviews.push(newReview)
+            const stationsRatingLi = document.querySelector("#stationRating")
+            stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
+            console.log(stationsRatingLi)
+            statUl.appendChild(stationsRatingLi)
         })
     })
-    .then(r => r.json())
-    .then(newReview => {
-        console.log("1")
-        console.log("displayReviewStuff")
-        slapItOnTheDom(newReview)
-        station.reviews.push(newReview)
-        const stationsRatingLi = document.querySelector("#stationRating")
-        stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
-        console.log(stationsRatingLi)
-        statUl.appendChild(stationsRatingLi)
-
-        // displayStats(station,newReview)
-    })
-
-})
 }
+
 function trueShow(station){
     window.scroll(0,1000)
     const ShowDiv = document.querySelector(".test")
-   const header= elCreator("h2")
-   header.innerText = station.stop_name
-   ShowDiv.append(header)
+    const header= elCreator("h2")
+    header.innerText = station.stop_name
+    ShowDiv.append(header)
 }
 
