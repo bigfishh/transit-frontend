@@ -10,33 +10,37 @@
     <!-- <script  src="index.css"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArOlWr1bK-Y_tjKPPOXvv0NZlslgRvSrw&callback=initMap"></script>
     <link href="style.css?<?=filemtime("style.css")?" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
 
-  <body >
-
-    <h2 id="title">Access Transit</h2>
-    <div id="map"></div>
-    <label for="myCheck" id ="elevLabel">Elevator</label>
-    <input type="checkbox" id="myCheck" class="Elevator">
-    <label for="escalator" id ="escLabel">Escalator</label>
-    <input type="checkbox" id="escalator" class="Escalator">
-    <div class="subwayUl">
-      <ul class="allSubway">
-        <!-- insert all subways -->
-      </ul>
+  <body>
+    <div class="appTitle">
+      <h2>Access Transit</h2>
     </div>
-    <div class="w-100">
-      <div class = "stats">
-        <ul id="statLi">
-          <!-- insert stat -->
+    <div id="map"></div>
+    <div class="everythingButTheMap">
+      <label for="myCheck" id ="elevLabel">Elevator</label>
+      <input type="checkbox" id="myCheck" class="Elevator">
+      <label for="escalator" id ="escLabel">Escalator</label>
+      <input type="checkbox" id="escalator" class="Escalator">
+      <div class="subwayUl">
+        <ul class="allSubway list-group">
+          <!-- insert all subways -->
         </ul>
       </div>
-    </div>
-    <div id="reviews" class="review-col">
-      <!-- insert reviews -->
-    </div>
-    <div id="form">
-        <!-- insert reviews form -->
+      <div class="w-100">
+        <div class = "stats">
+          <ul id="statLi">
+            <!-- insert stat -->
+          </ul>
+        </div>
+      </div>
+      <div id="reviews" class="review-col">
+        <!-- insert reviews -->
+      </div>
+      <div id="form">
+          <!-- insert reviews form -->
+      </div>
     </div>
     <!-- Button trigger modal -->
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">

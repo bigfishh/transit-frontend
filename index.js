@@ -7,20 +7,31 @@ escalCheckbox.addEventListener('click', () => {
 
 const modalUl = document.querySelector("#modal-Ul")
 
-//ensures that the modal is closed until clicked
-body.className = ""
-modal.className = "modal fade"
-modal.style = "display:none"
+let mapCenter = {lat: 40.74307, lng: -73.984264}
+let zoomNum = 13
+let map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter});
 
-function displayStation(station,type){
+function displayStation(station, type){
     const newLi = elCreator('li')
         newLi.innerText = `${station.stop_name}`
+
 
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
 
     google.maps.event.addListener(marker, 'click', (e) => {
-        
+        console.log(marker)
+        mapCenter = {lat: station.gtfs_latitude, lng: station.gtfs_longitude}
+        zoomNum = 15
+        map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
+        marker = new google.maps.Marker({position: latling, map: map})
+
+        if(type === "Elevator"){
+            esOrEl(elStation, checkbox, "Elevator")
+        } else {
+            esOrEl(esStation, escalCheckbox, "Escalator")
+        }   
+
         modal.className = "modal fade show"
         modal.style = "display:block"
 
@@ -32,6 +43,7 @@ function displayStation(station,type){
             routes.innerText = station.daytime_routes
         const feature = elCreator("li")
             feature.innerText = type
+            console.log(type)
 
 
         const stationsRatingLi = elCreator('li')
@@ -43,21 +55,45 @@ function displayStation(station,type){
 
     allSubUl.append(newLi)
 
-    newLi.addEventListener('click', (e) => {
-        
-        displayStats(station,type)
+    newLi.className = "list-group-item" 
 
-        displayReviewStuff(station)
-        formCreator(station)
-        clearer(reviewsDiv)
+    newLi.addEventListener('click', (e) => {
+        if (newLi.className === "list-group-item"){
+            newLi.className = "list-group-item active"
+            mapCenter = {lat: station.gtfs_latitude, lng: station.gtfs_longitude}
+            zoomNum = 15
+            map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
+            marker = new google.maps.Marker({position: latling, map: map})
+            displayStats(station,type)
+            displayReviewStuff(station)
+            formCreator(station)
+            clearer(reviewsDiv)
+        } else {
+            newLi.className = "list-group-item"
+            if(type === "Elevator"){
+                esOrEl(elStation, checkbox, "Elevator")
+            } else {
+                esOrEl(esStation, escalCheckbox, "Escalator")
+            }
+            mapCenter = {lat: 40.74307, lng: -73.984264}
+            zoomNum = 13
+            map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
+            marker = new google.maps.Marker({position: latling, map: map})
+            clearer(statUl)
+            clearer(reviewsDiv)
+            clearer(formDiv)
+        }
+    })
+
+    trigger.addEventListener("click",() => {
+        body.className = ""
+        marker.setAnimation(null);
+        modal.className = "modal fade"
+        modal.style = "display:none"
     })
 }
 
-trigger.addEventListener("click",() => {
-    body.className = ""
-    modal.className = "modal fade"
-    modal.style = "display:none"
-})
+
 
 function displayStats(station,type){
     clearer(statUl)
@@ -69,7 +105,6 @@ function displayStats(station,type){
         routes.innerText = `Routes: ${station.daytime_routes}`
     const feature = elCreator("li")
         feature.innerText = `Feature: ${type}`
-
 
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
@@ -127,6 +162,7 @@ function formCreator(station){
     <input type="text" name="Content"><br>
     <input type="submit" value="Submit">
     </form>`
+
     const newForm = formDiv.querySelector("#new-review-form")
     const stationRateLi = document.querySelector("#stationRating")
 

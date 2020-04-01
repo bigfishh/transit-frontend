@@ -11,7 +11,6 @@ let modal = document.querySelector("#exampleModalCenter")
 let body = document.getElementsByTagName("BODY")[0]
 let trigger = document.querySelector("#closeTrigger")
 const reviewCol = document.querySelector('.review-col')
-let map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}});
 
 const fetchedReview = Adapter.fetchStations("reviews")
 
@@ -26,7 +25,7 @@ const esOrEl = (arr,check,type) => {
     if (check.checked){
         arr.then(r => {
             r.forEach((station) => {
-                displayStation(station,type)
+                displayStation(station, type)
             })
         })
         

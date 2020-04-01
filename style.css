@@ -1,5 +1,7 @@
 body{
     overflow: hidden;
+    width: 100vw;
+    height: 120vh;
 }
 #map {
     position: absolute;
@@ -7,18 +9,19 @@ body{
     margin-left: 50%;
     width: 47%;
     height: 75%;
-    border: solid 2px gray;
-    border-radius: 20px
+    border-style: dashed;
 }
 
-#title{
-    text-align: center;
+#appTitle{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 50px;
+}
+.everythingButTheMap{
+    margin-left: 1%;
 }
 
 .allSubway{
     max-height: 250px;
+    max-width: 45vw;
     overflow-y: scroll;
 }
 
