@@ -5,6 +5,7 @@ escalCheckbox.addEventListener('click', () => {
     esOrEl(esStation, escalCheckbox, "Escalator")
 })
 
+
 const modalUl = document.querySelector("#modal-Ul")
 
 let mapCenter = {lat: 40.74307, lng: -73.984264}
@@ -13,24 +14,40 @@ let map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, ce
 
 function displayStation(station, type){
     const newLi = elCreator('li')
-        newLi.innerText = `${station.stop_name}`
+    let routes = station.daytime_routes
+        newLi.innerText = `${station.stop_name} `
 
+        function displayStationRoute(daytime_routes){
+            let daytime = daytime_routes.split(' ')
+            for(let i = 0; i < daytime.length; i ++ ){
+                if (daytime[i] === "D"){
+                    const newImg = elCreator('img')
+                    newImg.src = "http://web.mta.info/siteimages/subwaybullets/d.png"
+                    return newLi.append(newImg)
+                } else if (daytime[i] === "F"){
+                    const newImg2 = elCreator('img')
+                    newImg2.src = "http://web.mta.info/siteimages/subwaybullets/f.png"
+                    return newLi.append(newImg2)
+                } else if (daytime[i] === "B"){
+                    const newImg3 = elCreator('img')
+                    newImg3.src = "http://web.mta.info/siteimages/subwaybullets/b.png"
+                    return newLi.append(newImg3)
+                }
+            }
+        }
+
+    displayStationRoute(routes)
 
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
 
     google.maps.event.addListener(marker, 'click', (e) => {
-        console.log(marker)
         mapCenter = {lat: station.gtfs_latitude, lng: station.gtfs_longitude}
         zoomNum = 15
         map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
         marker = new google.maps.Marker({position: latling, map: map})
 
-        if(type === "Elevator"){
-            esOrEl(elStation, checkbox, "Elevator")
-        } else {
-            esOrEl(esStation, escalCheckbox, "Escalator")
-        }   
+        type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
 
         modal.className = "modal fade show"
         modal.style = "display:block"
@@ -60,21 +77,18 @@ function displayStation(station, type){
     newLi.addEventListener('click', (e) => {
         if (newLi.className === "list-group-item"){
             newLi.className = "list-group-item active"
+            console.log(newLi)
             mapCenter = {lat: station.gtfs_latitude, lng: station.gtfs_longitude}
             zoomNum = 15
             map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
             marker = new google.maps.Marker({position: latling, map: map})
+            type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
             displayStats(station,type)
-            displayReviewStuff(station)
             formCreator(station)
             clearer(reviewsDiv)
         } else {
             newLi.className = "list-group-item"
-            if(type === "Elevator"){
-                esOrEl(elStation, checkbox, "Elevator")
-            } else {
-                esOrEl(esStation, escalCheckbox, "Escalator")
-            }
+            type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
             mapCenter = {lat: 40.74307, lng: -73.984264}
             zoomNum = 13
             map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
@@ -87,20 +101,18 @@ function displayStation(station, type){
 
     trigger.addEventListener("click",() => {
         body.className = ""
-        marker.setAnimation(null);
         modal.className = "modal fade"
         modal.style = "display:none"
     })
 }
 
-
-
 function displayStats(station,type){
     clearer(statUl)
-    const statName = elCreator('p')
-        statName.innerText = "Info:"
-    const stationName = elCreator("li")
-        stationName.innerText = `Stop Name: ${station.stop_name}`
+    statsDiv.className += " card"
+    statsDiv.className += " statCard"
+    const statName = elCreator('h5')
+        statName.innerText = `${station.stop_name} Station`
+        statName.className = "card-title"
     const routes = elCreator("li")
         routes.innerText = `Routes: ${station.daytime_routes}`
     const feature = elCreator("li")
@@ -109,22 +121,15 @@ function displayStats(station,type){
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
         stationsRatingLi.id = "stationRating"
-    const reviewName = elCreator('p')
-        reviewName.innerText = "Reviews:"
     const statReviewBreak = elCreator('br')
-    statUl.append(statName, stationName,routes,feature, stationsRatingLi, statReviewBreak, reviewName)
-}
-
-function displayReviewStuff(station){
-    fetchedReview
-    .then(reviewsData => {
-        clearer(reviewsDiv)
-        reviewsData.forEach((review) => {
-            if (station.id === review["station_id"]){
-                slapItOnTheDom(review)
-            }
-        })
+    const newReviewButton = elCreator('button')
+        newReviewButton.type = "button"
+        newReviewButton.className = "btn btn-warning btn-sm"
+        newReviewButton.innerText = "Add and View Reviews"
+    newReviewButton.addEventListener( 'click', (e) => {
+        displayReviewStuff(station)
     })
+    statUl.append(statReviewBreak, statName, routes, feature, stationsRatingLi, statReviewBreak, newReviewButton)
 }
 
 
@@ -137,6 +142,31 @@ function slapItOnTheDom(review){
         contentLi.innerText = `Comment: ${review.content}`
     const reviewBreak = elCreator('br')
     reviewsDiv.append(nameLi,ratingLi,contentLi, reviewBreak)
+}
+
+function displayReviewStuff(station){
+    fetchedReview
+    .then(reviewsData => {
+        clearer(reviewsDiv)
+        console.log(reviewsData)
+        if (reviewsData.length > 0){
+            reviewsData.forEach((review) => {
+                if (station.id === review["station_id"]){
+                    if (station.reviews.length > 0){
+                        const reviewName = elCreator('p')
+                        reviewName.innerText = "Reviews:"
+                        reviewsDiv.append(reviewName)
+                        statUl.append(reviewsDiv)
+                        slapItOnTheDom(review)
+                    }
+                }
+            })
+        } else {
+            const reviewName = elCreator('p')
+            reviewName.innerText = "No Reviews Written Yet"
+            statUl.append(reviewName)
+        }
+    })
 }
 
 function elCreator(element){
@@ -189,8 +219,6 @@ function formCreator(station){
         .then(r => r.json())
         .then(newReview => {
             console.log("1")
-            console.log("displayReviewStuff")
-            slapItOnTheDom(newReview)
             station.reviews.push(newReview)
             const stationsRatingLi = document.querySelector("#stationRating")
             stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
@@ -207,4 +235,3 @@ function trueShow(station){
     header.innerText = station.stop_name
     ShowDiv.append(header)
 }
-
