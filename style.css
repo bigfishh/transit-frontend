@@ -5,18 +5,23 @@ body{
 }
 #map {
     position: absolute;
-    margin-top: 1%;
-    margin-left: 50%;
-    width: 47%;
-    height: 75%;
-    border-style: dashed;
+    margin-left: 2%;
+    width: 96%;
+    height: 79%;
+    border-width: medium;
+    border-style: double;
 }
+.titleDiv{
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 1%;
 
-#appTitle{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-.everythingButTheMap{
-    margin-left: 1%;
+.titleHeader{
+    text-align: left;
+    font-size: 4.5em;
+    line-height: 1;
+    font-family: 'Helvetica', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .allSubway{

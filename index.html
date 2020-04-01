@@ -14,34 +14,18 @@
   </head>
 
   <body>
-    <div class="appTitle">
-      <h2>Access Transit</h2>
+    <div class="titleDiv">
+      <span class="titleHeader">Access Transit</span>
+      <span class="selectOptions">
+        <label for="myCheck" id ="elevLabel">Elevator</label>
+        <input type="checkbox" id="myCheck" class="Elevator">
+        <label for="escalator" id ="escLabel">Escalator</label>
+        <input type="checkbox" id="escalator" class="Escalator">
+      </span>
+      <p class="appDescription"> Location of MTA subway stations with either elevators or escalators </p>
     </div>
     <div id="map"></div>
-    <div class="everythingButTheMap">
-      <label for="myCheck" id ="elevLabel">Elevator</label>
-      <input type="checkbox" id="myCheck" class="Elevator">
-      <label for="escalator" id ="escLabel">Escalator</label>
-      <input type="checkbox" id="escalator" class="Escalator">
-      <div class="subwayUl">
-        <ul class="allSubway list-group">
-          <!-- insert all subways -->
-        </ul>
-      </div>
-      <div class="w-100">
-        <div class = "stats">
-          <ul id="statLi">
-            <!-- insert stat -->
-          </ul>
-        </div>
-      </div>
-      <div id="reviews" class="review-col">
-        <!-- insert reviews -->
-      </div>
-      <div id="form">
-          <!-- insert reviews form -->
-      </div>
-    </div>
+    
     <!-- Button trigger modal -->
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
       Launch demo modal
@@ -61,6 +45,26 @@
             <ul id="modal-Ul">
 
             </ul>
+            <div class="everythingButTheMap">
+                <div class="subwayUl">
+                  <ul class="allSubway list-group">
+                    <!-- insert all subways -->
+                  </ul>
+                </div>
+                <div class="w-100">
+                  <div class = "stats">
+                    <ul id="statLi">
+                      <!-- insert stat -->
+                    </ul>
+                  </div>
+                </div>
+                <div id="reviews" class="review-col">
+                  <!-- insert reviews -->
+                </div>
+                <div id="form">
+                    <!-- insert reviews form -->
+                </div>
+              </div>
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
