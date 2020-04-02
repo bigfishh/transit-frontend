@@ -22,7 +22,10 @@ const clearer = (div) => {
 }
 
 const esOrEl = (arr, check, type) => {
+    map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}})
     if (check.checked){
+        console.log(check)
         arr.then(r => {
             r.forEach((station) => {
                 displayStation(station, type)
