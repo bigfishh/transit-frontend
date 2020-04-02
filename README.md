@@ -3,6 +3,12 @@
 <div align="center">
   A <code>JavaScript</code> application that locates the subway stations with elevators and escalators in New York City 
 </div>
+<div align="center">
+  <sub>Built with ✨ by
+  <a href="https://github.com/bigfishh">Annie Zheng</a> and
+  <a href="https://github.com/mqshaikh8"> Mohammed Shaikh</a>
+  </sub>
+</div>
 
 <br />
 
