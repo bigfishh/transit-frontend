@@ -12,10 +12,12 @@ body{
     border-style: double;
 }
 .everythingButTheMap{
+    display: none;
     margin-left: 60%;
     margin-right: 2%;
     border-width: medium;
     border-style: double;
+    
 }
 .titleDiv{
     margin-left: 2%;

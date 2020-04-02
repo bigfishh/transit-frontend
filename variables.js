@@ -11,7 +11,9 @@ let body = document.getElementsByTagName("BODY")[0]
 let trigger = document.querySelector("#closeTrigger")
 let viewMoreButton = document.querySelector(".viewMoreButton")
 const reviewCol = document.querySelector('.review-col')
-
+const infoCard = document.querySelector('.w-100')
+const statH5 = document.querySelector('.statH5')
+const  statNReview = document.querySelector('.everythingButTheMap')  
 const fetchedReview = Adapter.fetchStations("reviews")
 
 const elStation = Adapter.fetchStations("features/escalators")

@@ -53,81 +53,89 @@ function displayStation(station, type){
         modal.style = "display:none"
     })
 
-    clearer(statsDiv)
     viewMoreButton.addEventListener("click",() => {
         mapDiv.style = "width: 56%; overflow: hidden;"
         modal.className = "modal fade"
         modal.style = "display:none;"
         displayStats(station,type)
+        console.log("click me", station.id)
+        formDiv.style = "display:inline-block"
+        statNReview.style = "display:inline-block"
+        displayReviewStuff(station)
+        formCreator(station)
+        clearer(reviewsDiv)
     })
 
 }
 
 function displayStats(station,type){
-    clearer(statsDiv)
-    statsDiv.className += " card"
-    statsDiv.className += " statCard"
-    const statName = elCreator('h5')
-        statName.innerText = `${station.stop_name} Station`
-        statName.className = "card-title"
+    clearer(statUl)
+
+    const statName = elCreator('p')
+        statName.innerText = "Info:"
+    const stationName = elCreator("li")
+        stationName.innerText = `Stop Name: ${station.stop_name}`
     const routes = elCreator("li")
         routes.innerText = `Routes: ${station.daytime_routes}`
     const feature = elCreator("li")
         feature.innerText = `Feature: ${type}`
 
+
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
         stationsRatingLi.id = "stationRating"
+    const reviewName = elCreator('p')
+        reviewName.innerText = "Reviews:"
     const statReviewBreak = elCreator('br')
-    const newReviewButton = elCreator('button')
-        newReviewButton.type = "button"
-        newReviewButton.className = "btn btn-warning btn-sm"
-        newReviewButton.innerText = "Add and View Reviews"
-    newReviewButton.addEventListener( 'click', (e) => {
-        displayReviewStuff(station)
-    })
-    statsDiv.append(statReviewBreak, statName, routes, feature, stationsRatingLi, statReviewBreak, newReviewButton)
+    statUl.append(statName, stationName,routes,feature, stationsRatingLi, statReviewBreak, reviewName)
 }
 
-function slapItOnTheDom(review){
-    const nameLi = elCreator('li')
-        nameLi.innerText = `Name: ${review.name}`
-    const ratingLi = elCreator('li')
-        ratingLi.innerText = `Rating: ${review.rating}`
-    const contentLi = elCreator('li')
-        contentLi.innerText = `Comment: ${review.content}`
-    const reviewBreak = elCreator('br')
-    reviewsDiv.append(nameLi,ratingLi,contentLi, reviewBreak)
-}
 
 function displayReviewStuff(station){
     fetchedReview
     .then(reviewsData => {
         clearer(reviewsDiv)
-        console.log(reviewsData)
-        if (reviewsData.length > 0){
-            reviewsData.forEach((review) => {
-                if (station.id === review["station_id"]){
-                    if (station.reviews.length > 0){
-                        const reviewName = elCreator('p')
-                        reviewName.innerText = "Reviews:"
-                        reviewsDiv.append(reviewName)
-                        statsDiv.append(reviewsDiv)
-                        slapItOnTheDom(review)
-                    }
-                }
-            })
-        } else {
-            const reviewName = elCreator('p')
-            reviewName.innerText = "No Reviews Written Yet"
-            statsDiv.append(reviewName)
-        }
+        reviewsData.forEach((review) => {
+            if (station.id === review["station_id"]){
+                slapItOnTheDom(review)
+            }
+        })
     })
+
+   
 }
+
+
+function slapItOnTheDom(review){
+    // console.log(review)
+    const nameLi = elCreator('li')
+        nameLi.innerText = `Name: ${review.name}`
+        // console.log(nameLi)
+    const ratingLi = elCreator('li')
+        ratingLi.innerText = `Rating: ${review.rating}`
+        // console.log(ratingLi)
+    const contentLi = elCreator('li')
+        contentLi.innerText = `Comment: ${review.content}`
+        // console.log(contentLi)
+    const reviewBreak = elCreator('br')
+      
+    reviewsDiv.append(nameLi,ratingLi,contentLi, reviewBreak)
+}
+
+
+
+
 
 function elCreator(element){
     return document.createElement(element)
 }
+
+
+
+
+
+
+
 
 function formCreator(station){
     const formName = elCreator('p')
@@ -147,47 +155,51 @@ function formCreator(station){
     <label>Content</label>
     <input type="text" name="Content"><br>
     <input type="submit" value="Submit">
-    </form>`
+  </form>`
+  const newForm = formDiv.querySelector("#new-review-form")
+//   newForm.dataset
+const stationRateLi = document.querySelector("#stationRating")
 
-    const newForm = formDiv.querySelector("#new-review-form")
-    const stationRateLi = document.querySelector("#stationRating")
-
-    newForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        const nameValue  = e.target["Name"].value
-        const booleanValue  = e.target["local Or Nah?"].checked
-        console.log(booleanValue)
-        const RatingValue  = e.target["Rating"].value
-        const ContentValue  = e.target["Content"].value
-        fetch("http://localhost:3000/reviews",{
-            method: "POST",
-            headers:{
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({
-                name: nameValue,
-                station_id: station.id,
-                localOrNah:booleanValue,
-                rating:RatingValue,
-                content:ContentValue,
-            })
-        })
-        .then(r => r.json())
-        .then(newReview => {
-            console.log("1")
-            station.reviews.push(newReview)
-            const stationsRatingLi = document.querySelector("#stationRating")
-            stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
-            console.log(stationsRatingLi)
-            statsDiv.appendChild(stationsRatingLi)
+  newForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const nameValue  = e.target["Name"].value
+    const booleanValue  = e.target["local Or Nah?"].checked
+    console.log(booleanValue)
+    const RatingValue  = e.target["Rating"].value
+    const ContentValue  = e.target["Content"].value
+    fetch("http://localhost:3000/reviews",{
+        method: "POST",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+            name: nameValue,
+            station_id: station.id,
+            localOrNah:booleanValue,
+            rating:RatingValue,
+            content:ContentValue,
         })
     })
-}
+    .then(r => r.json())
+    .then(newReview => {
+        console.log("1")
+        console.log("displayReviewStuff")
+        slapItOnTheDom(newReview)
+        station.reviews.push(newReview)
+        const stationsRatingLi = document.querySelector("#stationRating")
+        stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
+        console.log(stationsRatingLi)
+        statUl.appendChild(stationsRatingLi)
 
+        // displayStats(station,newReview)
+    })
+
+})
+}
 function trueShow(station){
     window.scroll(0,1000)
     const ShowDiv = document.querySelector(".test")
-    const header= elCreator("h2")
-    header.innerText = station.stop_name
-    ShowDiv.append(header)
+   const header= elCreator("h2")
+   header.innerText = station.stop_name
+   ShowDiv.append(header)
 }
