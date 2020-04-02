@@ -17,7 +17,6 @@ function displayStation(station, type){
     let routes = station.daytime_routes
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
-    mapDiv.style = "width: 96%; overflow: hidden;"
 
     google.maps.event.addListener(marker, 'click', (e) => {
         mapCenter = {lat: station.gtfs_latitude, lng: station.gtfs_longitude}
@@ -53,7 +52,7 @@ function displayStation(station, type){
         modal.className = "modal fade"
         modal.style = "display:none"
     })
-    
+
     viewMoreButton.addEventListener("click",() => {
         mapDiv.style = "width: 56%; overflow: hidden;"
         modal.className = "modal fade"
