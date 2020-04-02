@@ -53,16 +53,18 @@ function displayStation(station, type){
         modal.style = "display:none"
     })
 
+    clearer(statsDiv)
     viewMoreButton.addEventListener("click",() => {
         mapDiv.style = "width: 56%; overflow: hidden;"
         modal.className = "modal fade"
         modal.style = "display:none;"
+        displayStats(station,type)
     })
 
 }
 
 function displayStats(station,type){
-    clearer(statUl)
+    clearer(statsDiv)
     statsDiv.className += " card"
     statsDiv.className += " statCard"
     const statName = elCreator('h5')
@@ -84,7 +86,7 @@ function displayStats(station,type){
     newReviewButton.addEventListener( 'click', (e) => {
         displayReviewStuff(station)
     })
-    statUl.append(statReviewBreak, statName, routes, feature, stationsRatingLi, statReviewBreak, newReviewButton)
+    statsDiv.append(statReviewBreak, statName, routes, feature, stationsRatingLi, statReviewBreak, newReviewButton)
 }
 
 function slapItOnTheDom(review){
@@ -110,7 +112,7 @@ function displayReviewStuff(station){
                         const reviewName = elCreator('p')
                         reviewName.innerText = "Reviews:"
                         reviewsDiv.append(reviewName)
-                        statUl.append(reviewsDiv)
+                        statsDiv.append(reviewsDiv)
                         slapItOnTheDom(review)
                     }
                 }
@@ -118,7 +120,7 @@ function displayReviewStuff(station){
         } else {
             const reviewName = elCreator('p')
             reviewName.innerText = "No Reviews Written Yet"
-            statUl.append(reviewName)
+            statsDiv.append(reviewName)
         }
     })
 }
@@ -177,7 +179,7 @@ function formCreator(station){
             const stationsRatingLi = document.querySelector("#stationRating")
             stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
             console.log(stationsRatingLi)
-            statUl.appendChild(stationsRatingLi)
+            statsDiv.appendChild(stationsRatingLi)
         })
     })
 }

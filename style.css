@@ -11,6 +11,12 @@ body{
     border-width: medium;
     border-style: double;
 }
+.everythingButTheMap{
+    margin-left: 60%;
+    margin-right: 2%;
+    border-width: medium;
+    border-style: double;
+}
 .titleDiv{
     margin-left: 2%;
     margin-top: 2%;
