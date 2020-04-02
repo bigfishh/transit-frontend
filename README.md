@@ -27,6 +27,7 @@ This web app is built with the following:
 **Front End**
 - Vanilla JavaScript [ES6]
 - Custom CSS3 styling 
+- Bootstrap [4.0.0]
 - Google Maps JavaScript API
 
 ## Installing
