@@ -5,11 +5,12 @@ const statsDiv = document.querySelector(".stats")
 const statUl = document.querySelector("#statLi")
 const formDiv = document.querySelector('#form')
 const reviewsDiv = document.querySelector("#reviews")
-const mapDiv = document.querySelector('.vertical-center')
+const mapDiv = document.querySelector('#map')
 let title = document.querySelector("#exampleModalLongTitle")
 let modal = document.querySelector("#exampleModalCenter")
 let body = document.getElementsByTagName("BODY")[0]
 let trigger = document.querySelector("#closeTrigger")
+let viewMoreButton = document.querySelector(".viewMoreButton")
 const reviewCol = document.querySelector('.review-col')
 
 const fetchedReview = Adapter.fetchStations("reviews")
