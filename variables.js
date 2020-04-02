@@ -35,6 +35,7 @@ const esOrEl = (arr, check, type) => {
         clearer(formDiv)
         clearer(statUl)
         clearer(reviewsDiv)
+        mapDiv.style = "width: 96%; overflow: hidden;"
         map = new google.maps.Map(
             document.getElementById('map'), {zoom: 13, center: {lat: 40.74307, lng: -73.984264}})
     }
