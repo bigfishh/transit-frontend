@@ -54,23 +54,33 @@ function displayStation(station, type){
     })
 
     viewMoreButton.addEventListener("click",() => {
+        let modalStation = document.querySelector(".modal-title")
+        stan = modalStation.innerText
+        if(type === "Elevator"){
+            station = elevStation.find(stop => stop.stop_name === stan)
+        }else{
+            station = escalStation.find(stop => stop.stop_name === stan)
+        }
+        console.log(station)
         mapDiv.style = "width: 56%; overflow: hidden;"
         modal.className = "modal fade"
         modal.style = "display:none;"
+        console.log(station)
         displayStats(station,type)
-        console.log("click me", station.id)
+        
         formDiv.style = "display:inline-block"
         statNReview.style = "display:inline-block"
         displayReviewStuff(station)
         formCreator(station)
         clearer(reviewsDiv)
+        
     })
-
+    
 }
 
 function displayStats(station,type){
     clearer(statUl)
-
+    
     const statName = elCreator('p')
         statName.innerText = "Info:"
     const stationName = elCreator("li")
