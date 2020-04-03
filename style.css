@@ -13,11 +13,11 @@ body{
 }
 .everythingButTheMap{
     display: none;
-    margin-left: 60%;
+    margin-left: 68%;
     margin-right: 2%;
     border-width: medium;
     border-style: double;
-    
+    width: 30vw;
 }
 .titleDiv{
     margin-left: 2%;

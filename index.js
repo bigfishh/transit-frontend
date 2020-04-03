@@ -27,7 +27,6 @@ function displayStation(station, type){
             console.log(station.stop_name)
         });
         
-
         type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
 
         modal.className = "modal fade show"
@@ -58,11 +57,11 @@ function displayStation(station, type){
         stan = modalStation.innerText
         if(type === "Elevator"){
             station = elevStation.find(stop => stop.stop_name === stan)
-        }else{
+        } else {
             station = escalStation.find(stop => stop.stop_name === stan)
         }
         console.log(station)
-        mapDiv.style = "width: 56%; overflow: hidden;"
+        mapDiv.style = "width: 65%; overflow: hidden;"
         modal.className = "modal fade"
         modal.style = "display:none;"
         console.log(station)
@@ -94,10 +93,8 @@ function displayStats(station,type){
     const stationsRatingLi = elCreator('li')
         stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
         stationsRatingLi.id = "stationRating"
-    const reviewName = elCreator('p')
-        reviewName.innerText = "Reviews:"
     const statReviewBreak = elCreator('br')
-    statUl.append(statName, stationName,routes,feature, stationsRatingLi, statReviewBreak, reviewName)
+    statUl.append(statName, stationName,routes,feature, stationsRatingLi)
 }
 
 
@@ -111,25 +108,21 @@ function displayReviewStuff(station){
             }
         })
     })
-
-   
 }
 
 
 function slapItOnTheDom(review){
-    // console.log(review)
+    const reviewName = elCreator('p')
+        reviewName.innerText = "Reviews:"
     const nameLi = elCreator('li')
         nameLi.innerText = `Name: ${review.name}`
-        // console.log(nameLi)
     const ratingLi = elCreator('li')
         ratingLi.innerText = `Rating: ${review.rating}`
-        // console.log(ratingLi)
     const contentLi = elCreator('li')
         contentLi.innerText = `Comment: ${review.content}`
-        // console.log(contentLi)
     const reviewBreak = elCreator('br')
-      
-    reviewsDiv.append(nameLi,ratingLi,contentLi, reviewBreak)
+
+    reviewsDiv.append(reviewName, nameLi,ratingLi,contentLi, reviewBreak)
 }
 
 
@@ -139,12 +132,6 @@ function slapItOnTheDom(review){
 function elCreator(element){
     return document.createElement(element)
 }
-
-
-
-
-
-
 
 
 function formCreator(station){
@@ -165,51 +152,48 @@ function formCreator(station){
     <label>Content</label>
     <input type="text" name="Content"><br>
     <input type="submit" value="Submit">
-  </form>`
-  const newForm = formDiv.querySelector("#new-review-form")
-//   newForm.dataset
-const stationRateLi = document.querySelector("#stationRating")
+    </form>`
+    const newForm = formDiv.querySelector("#new-review-form")
+    const stationRateLi = document.querySelector("#stationRating")
 
-  newForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const nameValue  = e.target["Name"].value
-    const booleanValue  = e.target["local Or Nah?"].checked
-    console.log(booleanValue)
-    const RatingValue  = e.target["Rating"].value
-    const ContentValue  = e.target["Content"].value
-    fetch("http://localhost:3000/reviews",{
-        method: "POST",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-            name: nameValue,
-            station_id: station.id,
-            localOrNah:booleanValue,
-            rating:RatingValue,
-            content:ContentValue,
+    newForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const nameValue  = e.target["Name"].value
+        const booleanValue  = e.target["local Or Nah?"].checked
+        console.log(booleanValue)
+        const RatingValue  = e.target["Rating"].value
+        const ContentValue  = e.target["Content"].value
+        fetch("http://localhost:3000/reviews",{
+            method: "POST",
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                name: nameValue,
+                station_id: station.id,
+                localOrNah:booleanValue,
+                rating:RatingValue,
+                content:ContentValue,
+            })
         })
-    })
-    .then(r => r.json())
-    .then(newReview => {
-        console.log("1")
-        console.log("displayReviewStuff")
-        slapItOnTheDom(newReview)
-        station.reviews.push(newReview)
-        const stationsRatingLi = document.querySelector("#stationRating")
-        stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
-        console.log(stationsRatingLi)
-        statUl.appendChild(stationsRatingLi)
+        .then(r => r.json())
+        .then(newReview => {
+            console.log("1")
+            console.log("displayReviewStuff")
+            slapItOnTheDom(newReview)
+            station.reviews.push(newReview)
+            const stationsRatingLi = document.querySelector("#stationRating")
+            stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
+            console.log(stationsRatingLi)
+            statUl.appendChild(stationsRatingLi)
+        })
 
-        // displayStats(station,newReview)
     })
-
-})
 }
 function trueShow(station){
     window.scroll(0,1000)
     const ShowDiv = document.querySelector(".test")
-   const header= elCreator("h2")
-   header.innerText = station.stop_name
-   ShowDiv.append(header)
+    const header= elCreator("h2")
+    header.innerText = station.stop_name
+    ShowDiv.append(header)
 }
