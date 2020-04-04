@@ -27,15 +27,13 @@ function displayStation(station, type){
         modal.className = "modal fade show"
         modal.style = "display:block"
 
-
-        title.innerText = station.stop_name
-        
+        title.innerText = `${station.stop_name} Station`
         clearer(modalUl)
     
-        const routes = elCreator("li")
-            routes.innerText = station.daytime_routes
-        const feature = elCreator("li")
-            feature.innerText = type
+        const routes = elCreator("p")
+            routes.innerText = `🚈 Subway Line: ${station.daytime_routes}`
+        const feature = elCreator("p")
+            feature.innerText = `🚈 Feature: ${type}`
             // console.log(type)
 
             modalUl.append(routes, feature)
@@ -56,9 +54,9 @@ function viewMorButtonFunction(station, type) {
         stan = modalStation.innerText
 
         if(type === "Elevator"){
-            station = elevStation.find(stop => stop.stop_name === stan)
+            station = elevStation.find(stop => `${stop.stop_name} Station` === stan)
         } else {
-            station = escalStation.find(stop => stop.stop_name === stan)
+            station = escalStation.find(stop => `${stop.stop_name} Station` === stan)
         }
         mapDiv.style = "width: 65%; overflow: hidden;"
         modal.className = "modal fade"
@@ -180,6 +178,7 @@ function formCreator(station){
         })
         .then(r => r.json())
         .then(newReview => {
+            clearer(newForm)
             formDiv.innerHTML += `
                 <form id="new-review-form">
                     <label class="nameLabel">Name</label>
