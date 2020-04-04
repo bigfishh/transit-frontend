@@ -5,7 +5,6 @@ escalCheckbox.addEventListener('click', () => {
     esOrEl(esStation, escalCheckbox, "Escalator")
 })
 
-
 const modalUl = document.querySelector("#modal-Ul")
 
 
@@ -14,7 +13,6 @@ let zoomNum = 13
 let map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter});
 
 function displayStation(station, type){
-    let routes = station.daytime_routes
     let latling = new google.maps.LatLng(station.gtfs_latitude , station.gtfs_longitude)
     let marker = new google.maps.Marker({position: latling, map: map})
 
@@ -24,7 +22,7 @@ function displayStation(station, type){
         map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
         marker = new google.maps.Marker({position: latling, map: map})
         google.maps.event.addDomListener(marker, 'mouseover', (e) => {
-            console.log(station.stop_name)
+            // console.log(station.stop_name)
         });
         
         type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
@@ -41,7 +39,7 @@ function displayStation(station, type){
             routes.innerText = station.daytime_routes
         const feature = elCreator("li")
             feature.innerText = type
-            console.log(type)
+            // console.log(type)
 
             modalUl.append(routes, feature)
     });
@@ -51,7 +49,11 @@ function displayStation(station, type){
         modal.className = "modal fade"
         modal.style = "display:none"
     })
+    
+    viewMorButtonFunction(type)
+}
 
+function viewMorButtonFunction(type) {
     viewMoreButton.addEventListener("click",() => {
         let modalStation = document.querySelector(".modal-title")
         stan = modalStation.innerText
@@ -60,43 +62,36 @@ function displayStation(station, type){
         } else {
             station = escalStation.find(stop => stop.stop_name === stan)
         }
-        console.log(station)
         mapDiv.style = "width: 65%; overflow: hidden;"
         modal.className = "modal fade"
         modal.style = "display:none;"
-        console.log(station)
         displayStats(station,type)
         
         formDiv.style = "display:inline-block"
         statNReview.style = "display:inline-block"
         displayReviewStuff(station)
         formCreator(station)
-        clearer(reviewsDiv)
-        
+        clearer(reviewsDiv) 
     })
-    
 }
 
-function displayStats(station,type){
+function displayStats(station, type){
     clearer(statUl)
     
-    const statName = elCreator('p')
-        statName.innerText = "Info:"
-    const stationName = elCreator("li")
-        stationName.innerText = `Stop Name: ${station.stop_name}`
-    const routes = elCreator("li")
-        routes.innerText = `Routes: ${station.daytime_routes}`
-    const feature = elCreator("li")
-        feature.innerText = `Feature: ${type}`
-
-
-    const stationsRatingLi = elCreator('li')
-        stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
+    const stationName = elCreator("h5")
+        stationName.className = "stationNameClass"
+        stationName.innerText = `${station.stop_name} Station 🚈`
+    const routes = elCreator("p")
+        routes.className = "routesClass"
+        routes.innerText = `❃  Routes: ${station.daytime_routes}`
+    const feature = elCreator("p")
+        feature.className = "featureClass"
+        feature.innerText = `❃  Feature: ${type}`
+    const stationsRatingLi = elCreator('p')
+        stationsRatingLi.innerText = `❃  Average Rating: ${(calculateRating(station) || 0)}`
         stationsRatingLi.id = "stationRating"
-    const statReviewBreak = elCreator('br')
-    statUl.append(statName, stationName,routes,feature, stationsRatingLi)
+    statUl.append(stationName,routes,feature, stationsRatingLi)
 }
-
 
 function displayReviewStuff(station){
     fetchedReview
@@ -104,30 +99,33 @@ function displayReviewStuff(station){
         clearer(reviewsDiv)
         reviewsData.forEach((review) => {
             if (station.id === review["station_id"]){
+                console.log(review)
                 slapItOnTheDom(review)
             }
         })
     })
 }
 
-
 function slapItOnTheDom(review){
-    const reviewName = elCreator('p')
-        reviewName.innerText = "Reviews:"
-    const nameLi = elCreator('li')
-        nameLi.innerText = `Name: ${review.name}`
-    const ratingLi = elCreator('li')
-        ratingLi.innerText = `Rating: ${review.rating}`
-    const contentLi = elCreator('li')
-        contentLi.innerText = `Comment: ${review.content}`
-    const reviewBreak = elCreator('br')
-
-    reviewsDiv.append(reviewName, nameLi,ratingLi,contentLi, reviewBreak)
+        const ratingStarP = elCreator('p')
+        ratingStarP.className = "ratingStarsP"
+            if (review.rating === 1){
+                ratingStarP.innerText = `- ${review.name} ⭐️/5`
+            } else if (review.rating === 2){
+                ratingStarP.innerText = `- ${review.name} ⭐️⭐️/5`
+            } else if (review.rating === 3){
+                ratingStarP.innerText = `- ${review.name} ⭐️⭐️⭐️/5`
+            } else if (review.rating === 4){
+                ratingStarP.innerText = `- ${review.name} ⭐️⭐️⭐️⭐️/5`
+            } else {
+                ratingStarP.innerText = `- ${review.name} ⭐️⭐️⭐️⭐️⭐️/5`
+            }
+        const contentLi = elCreator('p')
+            contentLi.className = "contentHeader"
+            contentLi.innerText = `"${review.content}"`
+        const reviewHr = elCreator('hr')
+        reviewsDiv.append(contentLi, ratingStarP, reviewHr)
 }
-
-
-
-
 
 function elCreator(element){
     return document.createElement(element)
@@ -135,32 +133,38 @@ function elCreator(element){
 
 
 function formCreator(station){
-    const formName = elCreator('p')
-        formName.innerText = "New Review:"
+    const formName = elCreator('h5')
+        formName.className = "formNameClass"
+        formName.innerText = "☞Leave a Review"
 
     formDiv.innerHTML = ""
     formDiv.append(formName)
 
+    
+
     formDiv.innerHTML += `
     <form id="new-review-form">
-    <label>Name</label>
-    <input type="text" name="Name"><br>
-    <label>Local or Nah?</label>
-    <input type="checkbox" name="local Or Nah?"><br>
-    <label>Rating</label>
-    <input type="integer" name="Rating"><br>
-    <label>Content</label>
-    <input type="text" name="Content"><br>
-    <input type="submit" value="Submit">
+        <label class="nameLabel">Name</label>
+        <input class="form-control" type="text" name="Name">
+        <label class="rateLabel">Rate from 1-5</label>
+        <select class="form-control" name="Rating">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        <label class="contentLabel">Share What You Have To Say...</label>
+        <input type="textarea" class="form-control" name="Content"><br>
+        <input type="submit" class="formSubmit btn btn-sm btn-warning" value="Submit">
     </form>`
     const newForm = formDiv.querySelector("#new-review-form")
-    const stationRateLi = document.querySelector("#stationRating")
 
     newForm.addEventListener('submit', (e) => {
         e.preventDefault()
         const nameValue  = e.target["Name"].value
-        const booleanValue  = e.target["local Or Nah?"].checked
-        console.log(booleanValue)
+        // const booleanValue  = e.target["local Or Nah?"].checked
+        // console.log(booleanValue)
         const RatingValue  = e.target["Rating"].value
         const ContentValue  = e.target["Content"].value
         fetch("http://localhost:3000/reviews",{
@@ -171,9 +175,9 @@ function formCreator(station){
             body: JSON.stringify({
                 name: nameValue,
                 station_id: station.id,
-                localOrNah:booleanValue,
-                rating:RatingValue,
-                content:ContentValue,
+                localOrNah: "true",
+                rating: RatingValue,
+                content: ContentValue,
             })
         })
         .then(r => r.json())
@@ -190,6 +194,7 @@ function formCreator(station){
 
     })
 }
+
 function trueShow(station){
     window.scroll(0,1000)
     const ShowDiv = document.querySelector(".test")

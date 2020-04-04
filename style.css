@@ -15,9 +15,13 @@ body{
     display: none;
     margin-left: 68%;
     margin-right: 2%;
+    width: 29vw;
+}
+.w-100{
     border-width: medium;
     border-style: double;
-    width: 30vw;
+    /* margin: 2%; */
+    padding: 2%;
 }
 .titleDiv{
     margin-left: 2%;
@@ -30,6 +34,16 @@ body{
     font-size: 4.5em;
     line-height: 1;
     font-family: 'Helvetica', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.ReviewsHTag{
+    text-align: center;
+}
+
+.ratingStarsP{
+    font-style: italic;
+    font-size: smaller;
+    margin-right: 1%;
+    width: 12vw;
 }
 
 .allSubway{
@@ -45,8 +59,8 @@ body{
     margin-left: 35%;
     /* align-content: center; */
 }
-#reviews{
-    max-height: 100px;
+.review-col{
+    max-height: 10vh;
     overflow-y: scroll;
 }
 
@@ -71,6 +85,69 @@ body{
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-.statCard{
-    width: 18rem;
+
+.bigReviewDiv{
+    border-width: medium;
+    border-style: double;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 1%;
+    width: 100%;
+}
+/* .card{
+    margin: 1%;
+    background-color: gainsboro;
+} */
+/* .bigReviewDiv{
+    width: 100%;
+} */
+/* .ratingStarsP{
+    margin-bottom: 0%;
+} */
+/* .nameHeader{
+    font-size: smaller;
+    margin-bottom: 0%;
+} */
+.contentHeader{
+    margin-bottom: 0%;
+}
+#form{
+    border-width: medium;
+    border-style: double;
+    padding: 2%;
+    width: 100%;
+}
+.stationNameClass{
+    text-align: center;
+}
+#statLi{
+    margin-left: 0%;
+}
+.formNameClass{
+    text-align: center;
+}
+#stationRating{
+    margin-bottom: 0%;
+}
+.routesClass{
+    margin-bottom: 0%;
+}
+.featureClass{
+    margin-bottom: 0%;
+}
+/* form labels */
+.nameLabel{
+    margin-top: 1%;
+    margin-bottom: 1%;    
+}
+.rateLabel{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.contentLabel{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.formSubmit{
+    margin-top: 0%;
 }

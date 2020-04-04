@@ -13,9 +13,9 @@ let viewMoreButton = document.querySelector(".viewMoreButton")
 const reviewCol = document.querySelector('.review-col')
 const infoCard = document.querySelector('.w-100')
 const statH5 = document.querySelector('.statH5')
-const  statNReview = document.querySelector('.everythingButTheMap')  
+const  statNReview = document.querySelector('.everythingButTheMap') 
 const fetchedReview = Adapter.fetchStations("reviews")
-
+const bigReviewDiv = document.querySelector('.bigReviewDiv')
 const elStation = Adapter.fetchStations("features/escalators")
 const esStation = Adapter.fetchStations("features/elevators")
 
@@ -57,5 +57,21 @@ const calculateRating = (station) => {
 
     })
 
-return Math.floor(sumOfRating/station.reviews.length)
+    let avgRate = Math.floor(sumOfRating/station.reviews.length)
+
+    if (avgRate === 1){
+        return `⭐️`
+    } else if (avgRate === 2){
+        return `⭐️⭐️`
+    } else if (avgRate === 3){
+        return `⭐️⭐️⭐️`
+    } else if (avgRate === 4){
+        return `⭐️⭐️⭐️⭐️`
+    } else if (avgRate === 5) {
+        return `⭐️⭐️⭐️⭐️⭐️`
+    } else {
+        return "⭐️no ratings yet ⭐️"
+    }
+
+    // return avgRate
 }
