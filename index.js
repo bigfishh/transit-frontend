@@ -21,9 +21,6 @@ function displayStation(station, type){
         zoomNum = 15
         map = new google.maps.Map(document.getElementById('map'), {zoom: zoomNum, center: mapCenter})
         marker = new google.maps.Marker({position: latling, map: map})
-        google.maps.event.addDomListener(marker, 'mouseover', (e) => {
-            // console.log(station.stop_name)
-        });
         
         type === "Elevator" ? esOrEl(elStation, checkbox, "Elevator") : esOrEl(esStation, escalCheckbox, "Escalator")
 
@@ -50,13 +47,14 @@ function displayStation(station, type){
         modal.style = "display:none"
     })
     
-    viewMorButtonFunction(type)
+    viewMorButtonFunction(station, type)
 }
 
-function viewMorButtonFunction(type) {
+function viewMorButtonFunction(station, type) {
     viewMoreButton.addEventListener("click",() => {
         let modalStation = document.querySelector(".modal-title")
         stan = modalStation.innerText
+
         if(type === "Elevator"){
             station = elevStation.find(stop => stop.stop_name === stan)
         } else {
@@ -182,6 +180,22 @@ function formCreator(station){
         })
         .then(r => r.json())
         .then(newReview => {
+            formDiv.innerHTML += `
+                <form id="new-review-form">
+                    <label class="nameLabel">Name</label>
+                    <input class="form-control" type="text" name="Name">
+                    <label class="rateLabel">Rate from 1-5</label>
+                    <select class="form-control" name="Rating">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <label class="contentLabel">Share What You Have To Say...</label>
+                    <input type="textarea" class="form-control" name="Content"><br>
+                    <input type="submit" class="formSubmit btn btn-sm btn-warning" value="Submit">
+                </form>`
             console.log("1")
             console.log("displayReviewStuff")
             slapItOnTheDom(newReview)
