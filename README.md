@@ -13,8 +13,6 @@
   <img width="100%" height="60%" src="access-transit.gif">
 </p>
 
-<br />
-
 ## Features 
 - View MTA subway stations via Google Maps
 - Filter subway stations based on accessibility options:
