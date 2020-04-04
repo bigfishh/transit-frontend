@@ -13,7 +13,11 @@
 <br />
 
 ## Features 
-
+- View MTA subway stations via Google Maps
+- Filter subway stations based on accessibility options:
+  - Elevator
+  - Escalator
+- View and leave reviews of each subway station
 
 ## Tech Stack
 This web app is built with the following:
