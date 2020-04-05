@@ -9,11 +9,15 @@
   <a href="https://github.com/mqshaikh8"> Mohammed Shaikh</a>
   </sub>
 </div>
+
+<br/>
+
 <div align="center">
-  <p> Explore: 
+  <sub> Explore: 
   <a href="https://www.youtube.com/watch?v=nuExyylFh0I">Demo</a> || <a href="">Deployed App</a>
-  </p>
+  </sub>
 </div>
+
 <p align="center">
   <img width="100%" height="60%" src="access-transit.gif">
 </p>
