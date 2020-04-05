@@ -18,7 +18,7 @@ const fetchedReview = Adapter.fetchStations("reviews")
 const bigReviewDiv = document.querySelector('.bigReviewDiv')
 const elStation = Adapter.fetchStations("features/escalators")
 const esStation = Adapter.fetchStations("features/elevators")
-
+console.log(elStation)
 const elevStation = []
  elStation.then(r => elevStation.push(...r) )
  const escalStation = []
