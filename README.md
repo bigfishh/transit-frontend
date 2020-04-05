@@ -17,7 +17,7 @@
 </p>
 
 <div align="center">
-  <p style="font-size: small">
+  <p>
   🧭Explore: 
   <a href="https://www.youtube.com/watch?v=nuExyylFh0I">Demo</a> || <a href="">Deployed App</a> || <a href="https://github.com/bigfishh/transit_backend">Backend</a>
   </p>
