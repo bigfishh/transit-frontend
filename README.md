@@ -17,9 +17,8 @@
 </p>
 
 <div align="center">
-  <sub> Explore: 
+  🧭Explore: 
   <a href="https://www.youtube.com/watch?v=nuExyylFh0I">Demo</a> || <a href="">Deployed App</a>
-  </sub>
 </div>
 
 ## Features 
