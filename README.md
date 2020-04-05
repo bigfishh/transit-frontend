@@ -10,9 +10,9 @@
   </sub>
 </div>
 <div align="center">
-  <sub>
-  <a href="https://www.youtube.com/watch?v=nuExyylFh0I">Demo</a> || <a href="https://github.com/mqshaikh8">Deployed App</a>
-  </sub>
+  <p> Explore: 
+  <a href="https://www.youtube.com/watch?v=nuExyylFh0I">Demo</a> || <a href="">Deployed App</a>
+  </p>
 </div>
 <p align="center">
   <img width="100%" height="60%" src="access-transit.gif">
