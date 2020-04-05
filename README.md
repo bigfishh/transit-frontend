@@ -13,7 +13,8 @@
   <img width="100%" height="60%" src="access-transit.gif">
 </p>
 Explore:
-[Demo](https://gentrification-map.firebaseapp.com/) || Deployed App
+[Demo](https://www.youtube.com/watch?v=nuExyylFh0I) || Deployed App
+
 ## Features 
 - View MTA subway stations via Google Maps
 - Filter subway stations based on accessibility options:
