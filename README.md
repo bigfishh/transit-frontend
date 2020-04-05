@@ -9,11 +9,14 @@
   <a href="https://github.com/mqshaikh8"> Mohammed Shaikh</a>
   </sub>
 </div>
+<div align="center">
+  <sub>
+  <a href="https://www.youtube.com/watch?v=nuExyylFh0I">Demo</a> || <a href="https://github.com/mqshaikh8">Deployed App</a>
+  </sub>
+</div>
 <p align="center">
   <img width="100%" height="60%" src="access-transit.gif">
 </p>
-Explore:
-[Demo](https://www.youtube.com/watch?v=nuExyylFh0I) || Deployed App
 
 ## Features 
 - View MTA subway stations via Google Maps
