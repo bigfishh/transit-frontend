@@ -3,6 +3,8 @@ function fetchStations(resource){
     .then(r => r.json())
 }
 
+
+
 let Adapter = {
     fetchStations
 }

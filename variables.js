@@ -25,9 +25,11 @@ const elevStation = []
  esStation.then(r => escalStation.push(...r) )
 
 
+
 const clearer = (div) => {
     div.innerText = ""
 }
+
 
 const esOrEl = (arr, check, type) => {
     map = new google.maps.Map(
