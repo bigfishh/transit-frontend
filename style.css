@@ -94,20 +94,7 @@ body{
     padding: 1%;
     width: 100%;
 }
-/* .card{
-    margin: 1%;
-    background-color: gainsboro;
-} */
-/* .bigReviewDiv{
-    width: 100%;
-} */
-/* .ratingStarsP{
-    margin-bottom: 0%;
-} */
-/* .nameHeader{
-    font-size: smaller;
-    margin-bottom: 0%;
-} */
+
 .contentHeader{
     margin-bottom: 0%;
 }
@@ -150,4 +137,15 @@ body{
 }
 .formSubmit{
     margin-top: 0%;
+}
+.selectOptions{
+    position:absolute;
+    top: 9%;
+    left: 39%;
+}
+.selectionInst{
+    font-size: x-small;
+    position:absolute;
+    top: 8%;
+    left: 39%;
 }
