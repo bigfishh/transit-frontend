@@ -201,7 +201,7 @@ function formCreator(station){
             slapItOnTheDom(newReview)
             station.reviews.push(newReview)
             const stationsRatingLi = document.querySelector("#stationRating")
-            stationsRatingLi.innerText = `Rating: ${(calculateRating(station) || 0)}`
+            stationsRatingLi.innerText = `❃  Average Rating: ${(calculateRating(station) || 0)}`
             console.log(stationsRatingLi)
             statUl.appendChild(stationsRatingLi)
         })
